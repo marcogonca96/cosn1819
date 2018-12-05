@@ -13,5 +13,8 @@
 ### Get Coverage Report in HTML
 `coverage html`
 
+### Install dependencies
+activate virtualenv and then run `pip install -r requirements.txt`
+
 ### Run Server
 `python manage.py runserver`
