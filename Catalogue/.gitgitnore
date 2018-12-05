@@ -113,14 +113,3 @@ ENV/
 .idea
 coverage
 
-# vim tmp files
-*.swp
-#SdpREST/prod_env.py
-SdpREST/settings/prod_env.py
-SdpREST/settings/dev.py
-
-.migrations/
-migrations/
-migrations/*
-#SQL
-*.sqlite3
