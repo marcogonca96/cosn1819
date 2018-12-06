@@ -18,3 +18,17 @@ activate virtualenv and then run `pip install -r requirements.txt`
 
 ### Run Server
 `python manage.py runserver`
+
+
+### Routes:
+##### Catalogue:
+
+```
+GET: `http://localhost:8000/api/catalogue`
+```
+
+##### Category:
+
+```
+GET: `http://localhost:8000/api/category`
+```
