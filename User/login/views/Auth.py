@@ -59,6 +59,6 @@ class AuthViewSet(viewsets.ModelViewSet):
         except HttpException as e:
             return HTTP.response(e.http_code, e.http_detail)
         except Exception as e:
-            return HTTP.response(400, 'Ocorreu um erro inesperado',
+            return HTTP.response(400, 'Ocorreu um erro   inesperado',
                                  'Unexpected Error. {}. {}.'.format(type(e).__name__, str(e)))
 
