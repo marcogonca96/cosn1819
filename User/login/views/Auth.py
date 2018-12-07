@@ -62,6 +62,3 @@ class AuthViewSet(viewsets.ModelViewSet):
             return HTTP.response(400, 'Ocorreu um erro inesperado',
                                  'Unexpected Error. {}. {}.'.format(type(e).__name__, str(e)))
 
-    @staticmethod
-    def create(request):
-        pass
