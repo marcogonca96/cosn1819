@@ -22,3 +22,20 @@ dmypy.json
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Flask Stuff
+
+venv/
+
+*.pyc
+__pycache__/
+
+instance/
+
+.pytest_cache/
+.coverage
+htmlcov/
+
+dist/
+build/
+*.egg-info/
