@@ -18,7 +18,7 @@ class User(models.Model):
 
     id = models.AutoField(primary_key=True)
     email = models.CharField(max_length=64, blank=False, null=True, unique=True)
-    username = models.CharField(max_length=64, blank=False, null=True, unique=True)
+    username = models.CharField(max_length=64, blank=False, null=True)
     password = models.CharField(max_length=64, blank=False, null=True)
     level = models.CharField(choices=level_type, max_length=32, blank=False, default=admin)
 

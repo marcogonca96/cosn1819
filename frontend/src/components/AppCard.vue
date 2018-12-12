@@ -7,7 +7,7 @@
       <v-flex xs8>
         <v-card-title primary-title>
           <div>
-            <div class="headline"> {{ trailer.name }}</div>
+            <div class="headline"> {{ trailer.title }}</div>
             <div>{{ trailer.category }}</div>
           </div>
         </v-card-title>
@@ -16,7 +16,7 @@
         class="shrink ma-2"
         contain
         height="125px"
-        src="https://cdn.vuetifyjs.com/images/cards/halcyon.png"
+        src= (trailer.image) 
         style="flex-basis: 125px"
       ></v-img>
     </v-layout>
@@ -47,8 +47,12 @@
 </template>
 
 <script>
-  export default {
+  /*import {
+      base_catalogue_url
+  } from "../helpers/general.js";
+  */export default {
     props: ['trailer']
+    
     
   }
 </script>

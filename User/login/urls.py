@@ -6,7 +6,7 @@ from login.views.Auth import AuthViewSet
 
 router = DefaultRouter()
 
-#router.register(r'products/acknowledge', MasterdataProducts3PLViewSet, 'Products3PL')
+router.register(r'user', AuthViewSet, 'user')
 
 urlpatterns = [
     url(r'login/', AuthViewSet.as_view({'post': 'login'}), name='login'),

@@ -11,10 +11,10 @@
                                     <h3>Registration</h3>
                                 </v-card-title>
                                 <v-card-text>
-                                    <v-form>
+                                    <v-form v-model="formCreateUser" ref="formCreateUser" lazy-validation>
                                         <v-text-field v-model="name" :error-messages="nameErrors"  label="Name" required @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
                                         <v-text-field v-model="email" :error-messages="emailErrors" label="E-mail" required @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
-                                        <v-text-field v-model="password" :error-messages="emailErrors" label="Password" required @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
+                                        <v-text-field v-model="password" :error-messages="emailErrors" label="Password" required @input="$v.password.$touch()" @blur="$v.password.$touch()"></v-text-field>
                                         <v-text-field v-model="confirmpassword" :error-messages="emailErrors" label="Confirm Password" required @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
                                         <v-checkbox v-model="checkbox" :error-messages="checkboxErrors" label="Upgrade for Premium?" required @change="$v.checkbox.$touch()" @blur="$v.checkbox.$touch()"></v-checkbox>
                                         <v-card-actions>
@@ -24,9 +24,8 @@
                                             </router-link>
                                             </div>
                                             <div>
-                                             <router-link to="/homePage">
-                                                <v-btn color="purple" dark>Registration</v-btn>
-                                            </router-link>
+                                             
+                                                <v-btn color="purple" v-on:click="submit()" dark>Registration</v-btn>
                                             </div>
                                         </v-card-actions>
                                     </v-form>
@@ -44,6 +43,9 @@
 <script>
     import AppFooter from './AppFooter'
     import axios from 'axios'
+
+    import { createUser } from "@/helpers/register/register.js";
+
     
     export default {
         components: {
@@ -71,18 +73,23 @@
         'Item 3',
         'Item 4'
       ],
+      formCreateUser: [],
+      confirmpassword: '',
+      password: '',
+      password_rules: [
+          v => !!v || 'Password is required',
+      ],
       checkbox: false
     }),
 
     methods: {
       submit () {
-        if (this.$refs.form.validate()) {
+        if (this.$refs.formCreateUser.validate()) {
           // Native form submission is not yet supported
-          axios.post('/api/submit', {
-            name: this.name,
-            email: this.email,
-            select: this.select,
-            checkbox: this.checkbox
+          createUser(this.name, this.password, this.email, 'Admin').then(suc => {
+              console.log("registou");
+          }).catch(err => {
+              throw err;
           })
         }
       },
