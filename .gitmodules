@@ -1,6 +1,0 @@
-[submodule "trailerflix_f"]
-	path = trailerflix_f
-	url = https://github.com/adeliahvgoncalves/trailerflix_frontend.git
-[submodule "trailerflix_front"]
-	path = trailerflix_front
-	url = https://github.com/marcogonca96/cosn1819
