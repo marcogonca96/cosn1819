@@ -39,7 +39,9 @@
     import AppSearchbar from './AppSearchbar'
     import AppCard from './AppCard'
     import AppFooter from './AppFooter'
-    
+
+    import { getCatalogue } from "@/helpers/Home/home.js";
+
     export default {
         components: {
             AppSearchbar,
@@ -48,6 +50,7 @@
         },
         data() {
             return {
+                lista_de_trailers: [],
                 categories: [{
                     id: 1,
                     name: "Comedy"
@@ -98,10 +101,24 @@
                         category: "romance"
                     }
                 ]
+            }    
+        },
+        methods: {
+            listarTrailers: function() {
+                getCatalogue().then(suc => {
+                    suc.data.forEach(element => {
+                        this.lista_de_trailers.push(element);
+                    });
+                    console.log(suc.data)
+                })
+                .catch(err => {
+                    console.log(err);
+                });
             }
-    
-        }
-    
+        },
+        mounted() {
+            this.listarTrailers();
+        }    
     }
 </script>
 
