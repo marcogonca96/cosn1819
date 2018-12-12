@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  wishlist:
+    build: ./Wishlist
+    volumes:
+      - .:/wish
+    ports:
+      - "8000:8000"
+  user:
+    build: ./User
+    volumes:
+      - .:/user
+    ports:
+      - "8001:8001"  
+  catalogue:
+    build: ./Catalogue
+    volumes:
+      - .:/catalogue
+    ports:
+      - "8002:8002"

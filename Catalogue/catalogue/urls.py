@@ -5,10 +5,12 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 
 from catalogue.views.CatalogueView import CatalogueViewSet
+from catalogue.views.CategoryView import CategoryViewSet
 
 router = DefaultRouter()
 
 router.register(r'catalogue', CatalogueViewSet, 'Catalogue')
+router.register(r'category', CategoryViewSet, 'Category')
 
 urlpatterns = [
     path('', include(router.urls))

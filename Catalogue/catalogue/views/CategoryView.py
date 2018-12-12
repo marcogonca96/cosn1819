@@ -2,17 +2,17 @@ from rest_framework.viewsets import ModelViewSet
 
 from catalogue.helpers.HttpException import HttpException
 from catalogue.helpers.HttpResponseHandler import HTTP
-from catalogue.models.catalogue import Catalogue
-from catalogue.serializers.catalogueSerializer import CatalogueSerializer
+from catalogue.models.category import Category
+from catalogue.serializers.categorySerializer import CategorySerializer
 
 
-class CatalogueViewSet(ModelViewSet):
+class CategoryViewSet(ModelViewSet):
 
     def list(self, request):
         try:
 
-            query = Catalogue.objects.all()
-            data = CatalogueSerializer(query, many=True).to_representation(query)
+            query = Category.objects.all()
+            data = CategorySerializer(query, many=True).to_representation(query)
             return HTTP.response(200, 'Catalogue View', data)
 
         except HttpException as e:

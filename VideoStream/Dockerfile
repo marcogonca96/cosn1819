@@ -10,8 +10,10 @@ WORKDIR /trailix
 
 RUN pip install -r requirements.txt
 
+RUN export FLASK_APP=main.py
+RUN export FLASK_ENV=development
+
 COPY . /trailix
 
-ENTRYPOINT [ "python" ]
-
-CMD [ "main.py" ]
+#ENTRYPOINT [ "python" ]
+CMD [ "flask run" ]
