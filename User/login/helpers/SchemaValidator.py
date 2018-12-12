@@ -10,7 +10,7 @@ class SchemaValidator:
     @staticmethod
     def validate_obj_structure(req_json, file_path):
         try:
-            with open('sdp/schemas/' + file_path, encoding='utf-8') as data_file:
+            with open('login/schemas/' + file_path, encoding='utf-8') as data_file:
                 schema = json.loads(data_file.read())
             jsonschema.validate(req_json, schema)
 

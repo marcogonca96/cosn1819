@@ -3,19 +3,31 @@ version: '3'
 services:
   wishlist:
     build: ./Wishlist
+    command: python3 manage.py runserver 0.0.0.0:8000 
     volumes:
       - .:/wish
     ports:
       - "8000:8000"
   user:
     build: ./User
+    command: python3 manage.py runserver 0.0.0.0:8001
     volumes:
       - .:/user
     ports:
       - "8001:8001"  
   catalogue:
     build: ./Catalogue
+    command: python3 manage.py runserver 0.0.0.0:8002 
     volumes:
       - .:/catalogue
     ports:
       - "8002:8002"
+#  frontend:
+#    build: ./frontend
+#    command: npm run serve 
+#    volumes:
+#      - .:/frontend
+#    ports:
+#      - "8080:8080"
+#    depends:
+#      - wishlist

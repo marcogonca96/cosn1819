@@ -3,7 +3,7 @@
         <app-searchbar></app-searchbar>
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
-                <v-flex v-for="trailer in trailers" :key="trailer.id" xs6>
+                <v-flex v-for="trailer in lista_de_trailers" :key="trailer.id" xs6>
                     <app-card v-bind:trailer="trailer" v-bind:key=trailer.id></app-card>
                 </v-flex>
             </v-layout>
@@ -14,7 +14,7 @@
                 <v-card>
                     <v-card-title>Select a Category</v-card-title>
                     <v-divider></v-divider>
-                    <v-list-tile v-for="category in categories" :key="category.id">
+                    <v-list-tile v-for="category in lista_de_categorias" :key="category.id">
                         <v-list-tile-content>
                             <v-checkbox value="category.name" :key="category.id" :label="category.name" v-model="selected">
                             </v-checkbox>
@@ -22,10 +22,8 @@
                     </v-list-tile>
                     <v-divider></v-divider>
                     <v-card-actions>
-                     
-                            <v-btn color="purple" dark flat @click="dialog = true" to="/homePage">Close</v-btn>
-                            <v-btn color="purple" dark flat @click="dialog = false">Save</v-btn>
-                       
+                        <v-btn color="purple" dark flat @click="dialog = true" to="/homePage">Close</v-btn>
+                        <v-btn color="purple" dark flat @click="dialog = false">Save</v-btn>
                     </v-card-actions>
                 </v-card>
             </v-dialog>
@@ -40,7 +38,7 @@
     import AppCard from './AppCard'
     import AppFooter from './AppFooter'
 
-    import { getCatalogue } from "@/helpers/Home/home.js";
+    import { getCatalogue, getCategories } from "@/helpers/Home/home.js";
 
     export default {
         components: {
@@ -51,6 +49,7 @@
         data() {
             return {
                 lista_de_trailers: [],
+                lista_de_categorias: [],
                 categories: [{
                     id: 1,
                     name: "Comedy"
@@ -109,15 +108,28 @@
                     suc.data.forEach(element => {
                         this.lista_de_trailers.push(element);
                     });
-                    console.log(suc.data)
+                    //console.log(suc.data)
                 })
                 .catch(err => {
-                    console.log(err);
+                    throw err;         
                 });
-            }
+            },
+            listarCategorias: function() {
+                getCategories().then(suc => {
+                    suc.data.forEach(element => {
+                        this.lista_de_categorias.push(element);
+                    });
+                    //console.log(suc.data)
+                })
+                .catch(err => { 
+                    throw err; 
+                   // console.log(err);
+                });
+            },
         },
         mounted() {
             this.listarTrailers();
+            this.listarCategorias();
         }    
     }
 </script>
