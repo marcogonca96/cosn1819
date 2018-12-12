@@ -1,5 +1,7 @@
 import bcrypt
 import jwt
+from rest_framework.viewsets import GenericViewSet
+
 from ..helpers.HttpException import HttpException
 from ..helpers.HttpResponseHandler import HTTP
 from ..helpers.SchemaValidator import SchemaValidator
@@ -8,7 +10,7 @@ from rest_framework import viewsets
 from ..models.User import User
 
 
-class AuthViewSet(viewsets.ModelViewSet):
+class AuthViewSet(GenericViewSet):
     @staticmethod
     def login(request):
         try:
@@ -61,4 +63,26 @@ class AuthViewSet(viewsets.ModelViewSet):
         except Exception as e:
             return HTTP.response(400, 'Ocorreu um erro   inesperado',
                                  'Unexpected Error. {}. {}.'.format(type(e).__name__, str(e)))
+    @staticmethod
+    def create(request):
+        try:
+            data = request.data
+            # 1.2. Check schema
+            SchemaValidator.validate_obj_structure(request.data, 'create_user.json')
+            level = User.admin if request.data['level'].lower() == 'admin' else User.normal
+            user = User(
+                email=data['email'].lower() if 'email' in data else None,
+                username=data['username'].lower() if 'username' in data else None,
+                level=level,
+                password=str(bcrypt.hashpw(request.data['password'].encode('utf8'), bcrypt.gensalt()), 'utf8'),
+            )
+            user.save()
 
+        except HttpException as e:
+            return HTTP.response(e.http_code, e.http_detail)
+        except Exception as e:
+            return HTTP.response(400,
+                                 'Ocorreu um erro inesperado',
+                                 'Unexpected Error. {}. {}.'.format(type(e).__name__, str(e)))
+
+        return HTTP.response(200, 'Utilizador criado com sucesso.')

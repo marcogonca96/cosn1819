@@ -1,0 +1,33 @@
+{
+    "type": "object",
+    "properties": {
+        "username": {
+            "type": [
+                "string"
+            ]
+        },
+        "password": {
+            "type": [
+                "string"
+            ]
+        },
+        "email": {
+            "type": [
+                "string"
+            ]
+        },
+        "level": {
+            "type": [
+                "string"
+
+            ],
+          "enum": ["admin", "Admin", "Normal", "normal"]
+        }
+    },
+    "required": [
+        "username",
+        "password",
+        "email",
+        "level"
+    ]
+}
