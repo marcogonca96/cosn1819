@@ -6,6 +6,7 @@ services:
     command: python3 manage.py runserver 0.0.0.0:8000 
     volumes:
       - .:/wish
+      - ./Wishlist/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8000:8000"
   user:
@@ -13,6 +14,7 @@ services:
     command: python3 manage.py runserver 0.0.0.0:8001
     volumes:
       - .:/user
+      - ./User/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8001:8001"  
   catalogue:
@@ -20,6 +22,7 @@ services:
     command: python3 manage.py runserver 0.0.0.0:8002 
     volumes:
       - .:/catalogue
+      - ./Catalogue/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8002:8002"
 #  frontend:
