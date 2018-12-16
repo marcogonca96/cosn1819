@@ -3,8 +3,11 @@
         <app-searchbar></app-searchbar>
         <v-container grid-list-md text-xs-center>
             <v-layout row wrap>
-                <v-flex v-for="trailer in lista_de_trailers" :key="trailer.id" xs6>
-                    <app-card v-bind:trailer="trailer" v-bind:key=trailer.id></app-card>
+                <v-flex v-for="trailer in trailers" :key="trailer.id" xs6>
+                    <app-card 
+                        v-bind:trailer="trailer"
+                        v-bind:categories="trailerCategoryMap[trailer.id]"
+                        v-bind:key=trailer.id></app-card>
                 </v-flex>
             </v-layout>
         </v-container>
@@ -14,7 +17,7 @@
                 <v-card>
                     <v-card-title>Select a Category</v-card-title>
                     <v-divider></v-divider>
-                    <v-list-tile v-for="category in lista_de_categorias" :key="category.id">
+                    <v-list-tile v-for="category in categories" :key="category.id">
                         <v-list-tile-content>
                             <v-checkbox value="category.name" :key="category.id" :label="category.name" v-model="selected">
                             </v-checkbox>
@@ -48,88 +51,53 @@
         },
         data() {
             return {
-                lista_de_trailers: [],
-                lista_de_categorias: [],
-                categories: [{
-                    id: 1,
-                    name: "Comedy"
-                },
-                {
-                    id: 2,
-                    name: "Romantic"
-                },
-                {
-                    id: 3,
-                    name: "Action"
-                },
-                {
-                    id: 4,
-                    name: "Sci-Fi"
-                },
-                {
-                    id: 5,
-                    name: "Terror"
-                },
-                {
-                    id: 6,
-                    name: "Drama"
-                },
-                ],
-                trailers: [{
-                        id: 1,
-                        rating: 5,
-                        name: "name 1",
-                        category: "action"
-                    },
-                    {
-                        id: 2,
-                        rating: 3,
-                        name: "name 2",
-                        category: "sci-fi"
-                    },
-                    {
-                        id: 3,
-                        rating: 2,
-                        name: "name 3",
-                        category: "comedy"
-                    },
-                    {
-                        id: 4,
-                        rating: 4,
-                        name: "name 4",
-                        category: "romance"
-                    }
-                ]
-            }    
+                trailers: [],
+                categories: [],
+                trailerCategoryMap: {},
+                categoriesMapping: {}
+              }  
         },
         methods: {
-            listarTrailers: function() {
+            mapByKey: function (objectArray, property) {
+                return objectArray.reduce(function (acc, obj) {
+                    var key = obj[property];
+                    acc[key]= obj;
+                    return acc;
+                }, {});
+            },
+            mapTrailerCategories: function (trailers, categoryMapping){
+                return trailers.reduce(function (acc, obj) {
+                    var categoryNames = obj.category.map( catId => categoryMapping[catId].name)
+                    acc[obj.id] = categoryNames
+                    
+                    return acc;
+                }, {});
+            },
+            listTrailers: function() {
                 getCatalogue().then(suc => {
-                    suc.data.forEach(element => {
-                        this.lista_de_trailers.push(element);
-                    });
-                    //console.log(suc.data)
+                    console.log(`suc ${JSON.stringify(suc)}`);
+                    this.trailers = suc;
+                    this.trailerCategoryMap = this.mapTrailerCategories(this.trailers, this.categoriesMapping);
                 })
                 .catch(err => {
                     throw err;         
                 });
             },
-            listarCategorias: function() {
+            listCategories: function() {
                 getCategories().then(suc => {
-                    suc.data.forEach(element => {
-                        this.lista_de_categorias.push(element);
-                    });
-                    //console.log(suc.data)
+                    this.categories = suc.data;
+                    this.categoriesMapping = this.mapByKey(this.categories, "id")
+                    // TODO: guardar em localStorage:  localStorage.categories + localStorage.categoriesMapping
                 })
                 .catch(err => { 
                     throw err; 
-                   // console.log(err);
+                   console.log(err);
                 });
             },
         },
         mounted() {
-            this.listarTrailers();
-            this.listarCategorias();
+            this.listCategories();
+            this.listTrailers();
         }    
     }
 </script>

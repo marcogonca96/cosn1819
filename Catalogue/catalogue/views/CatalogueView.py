@@ -8,17 +8,8 @@ from catalogue.serializers.catalogueSerializer import CatalogueSerializer
 
 class CatalogueViewSet(ModelViewSet):
 
-    def list(self, request):
-        try:
-
-            query = Catalogue.objects.all()
-            data = CatalogueSerializer(query, many=True).to_representation(query)
-            return HTTP.response(200, 'Catalogue View', data)
-
-        except HttpException as e:
-            return HTTP.response(e.http_code, e.http_detail)
-        except Exception as e:
-            return HTTP.response(400, 'Some error occurred. {}. {}.'.format(type(e).__name__, str(e)))
+    queryset = Catalogue.objects.all()
+    serializer_class = CatalogueSerializer
 
     def create(self, request):
         return HTTP.response(405, 'You are not allowed in here son, GTFO')

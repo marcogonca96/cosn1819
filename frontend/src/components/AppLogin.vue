@@ -11,8 +11,8 @@
                   <h3>Login</h3>
                 </v-card-title>
                 <v-card-text>
-                  <v-form>
-                    <v-text-field prepend-icon="person" name="login" label="Login" type="text"></v-text-field>
+                  <v-form v-model="loginForm">
+                    <v-text-field prepend-icon="person" name="email" label="Login" type="text"></v-text-field>
                     <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
   
   
@@ -47,6 +47,43 @@
     components: {
       AppFooter
     },
-  
+  data: () => ({
+    loginForm: false,
+    alert: false,
+    email: "",
+    password: "",
+    e1: true,
+    formRules: [
+      v => !!v || "Mandatory Field"
+      //v => (v && v.length <= 10) || "Name must be less than 10 characters"
+    ]
+  }),
+  computed: {
+    doneTodosCount() {
+      return this.$store.getters.isLogged;
+    }
+  },
+  methods: {
+    submit: function() {
+      if (this.$refs.loginForm.validate()) {
+        this.$store
+          .dispatch("authLogin", {
+            email: this.email.toLowerCase(),
+            password: this.password,
+            loggedin: true,
+          })
+          .then(suc => {
+            console.log(suc);
+          })
+          .catch(err => {
+            this.alert = !this.$store.getters.authResult;
+          });
+      }
+    },
+    clear: function() {
+      this.email = null;
+      this.password = null;
+    }
   }
+};
 </script>
