@@ -149,3 +149,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+JWT_ALGORITHM = 'HS256'
+JWT_SECRET = 'teste'
