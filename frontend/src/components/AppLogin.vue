@@ -23,9 +23,9 @@
                         </router-link>
                       </div>
                       <div>
-                        <router-link to="/homePage">
-                          <v-btn color="purple" dark>Login</v-btn>
-                        </router-link>
+                       
+                          <v-btn color="purple" v-on:click="submit()" dark>Login</v-btn>
+                       
                       </div>
                     </v-card-actions>  
                   </v-form>
@@ -42,7 +42,7 @@
 
 <script>
   import AppFooter from './AppFooter'
-  
+  //import{ signIn } from '@/helpers/login/login'
   export default {
     components: {
       AppFooter
@@ -65,20 +65,19 @@
   },
   methods: {
     submit: function() {
-      if (this.$refs.loginForm.validate()) {
+      //if (this.$refs.loginForm.validate()) {
         this.$store
           .dispatch("authLogin", {
             email: this.email.toLowerCase(),
             password: this.password,
             loggedin: true,
           })
-          .then(suc => {
-            console.log(suc);
-          })
           .catch(err => {
+            
             this.alert = !this.$store.getters.authResult;
+            throw err;
           });
-      }
+      //}
     },
     clear: function() {
       this.email = null;
