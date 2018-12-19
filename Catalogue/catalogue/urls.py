@@ -14,4 +14,5 @@ router.register(r'category', CategoryViewSet, 'Category')
 
 urlpatterns = [
     path('', include(router.urls))
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]
+urlpatterns = urlpatterns + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

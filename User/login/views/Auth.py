@@ -17,13 +17,13 @@ class AuthViewSet(GenericViewSet):
             # Check for Schema
             SchemaValidator.validate_obj_structure(request.data, 'login.json')
             # 1. Check if pair username-password is correct
-            user = User.objects.filter(username=request.data['username'].lower()).get()
+            user = User.objects.filter(email=request.data['email'].lower()).get()
             if not bcrypt.checkpw(request.data['password'].encode('utf8'), user.password.encode('utf8')):
                 raise HttpException(401, 'Credenciais não válidas.')
             # 4. Generate JWT
             jwt_data = {
                 'user_id': user.id,
-                'level_id': user.level.id,
+                'email': user.email,
             }
             jwt_encoded = jwt.encode(jwt_data, settings.JWT_SECRET,
                                      algorithm=settings.JWT_ALGORITHM).decode('utf-8')
@@ -31,7 +31,6 @@ class AuthViewSet(GenericViewSet):
             data = {
                 'jwt': jwt_encoded,
                 'username': user.username,
-                'level_id': user.level.id,
             }
 
             return HTTP.response(200, data=data)
