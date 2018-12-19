@@ -7,8 +7,6 @@ Created by .ignore support plugin (hsz.mobi)
 
 
 # Django
-db.sqlite3
-sdp/migrations/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
