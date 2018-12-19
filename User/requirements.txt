@@ -3,11 +3,11 @@ bcrypt==3.1.4
 cffi==1.11.5
 cryptography==2.4.2
 Django==2.1.4
+django-cors-headers==2.4.0
 djangorestframework==3.9.0
-django-cors-headers
 idna==2.8
 jsonschema==2.6.0
-jwt==0.5.4
 pycparser==2.19
+PyJWT==1.7.1
 pytz==2018.7
 six==1.11.0
