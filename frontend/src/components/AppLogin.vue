@@ -12,8 +12,8 @@
                 </v-card-title>
                 <v-card-text>
                   <v-form v-model="loginForm">
-                    <v-text-field prepend-icon="person" name="email" label="Login" type="text"></v-text-field>
-                    <v-text-field prepend-icon="lock" name="password" label="Password" id="password" type="password"></v-text-field>
+                    <v-text-field prepend-icon="person" :rules="formRules" v-model="email" label="Login" type="text"></v-text-field>
+                    <v-text-field prepend-icon="lock" :rules="formRules" v-model="password" label="Password" id="password" type="password"></v-text-field>
   
   
                     <v-card-actions>

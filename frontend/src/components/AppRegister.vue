@@ -42,7 +42,7 @@
 <script>
     import AppFooter from './AppFooter'
     import { createUser } from "@/helpers/register/register.js";
-
+import router from '../router/index'
     
     export default {
         components: {
@@ -81,6 +81,7 @@
           // Native form submission is not yet supported
           createUser(this.name, this.password, this.email, 'Admin').then(suc => {
               console.log("registou");
+             router.push('/homePage');
           }).catch(err => {
               throw err;
           })

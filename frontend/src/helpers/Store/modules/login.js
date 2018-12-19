@@ -54,7 +54,7 @@ import {
               'userLevel': suc.data.level_id
             });
             dispatch('setLogoutTime', 3600);
-            router.replace('/homePage');
+            router.push('/homePage');
             resolve(true);
           })
           .catch(() => {
