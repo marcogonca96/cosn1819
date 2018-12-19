@@ -13,9 +13,13 @@ import mimetypes
 import sys
 import time
 import pprint
+import sqlite3
 
 from flask import Flask, render_template, Response
 from flask import request
+from frask import g 
+
+DATABASE = '/instance/videos.sqlite'
 
 logger = logging.getLogger(__name__)
 app = Flask(__name__)
