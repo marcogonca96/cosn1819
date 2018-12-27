@@ -12,7 +12,7 @@
              </v-layout>
             <v-layout row child-flex wrap style="margin-top:3%">
                 <div class="col-4">
-                    <h2 style="color:white"> Categories {{ this.categoriesList }}  </h2>
+                    <h2 style="color:white"> Categories: {{ this.categoriesList }}  </h2>
                 </div>
                 <div class="col-4">
                     <h3 style="color:white"> Year {{ trailer.year }} </h3>
@@ -20,8 +20,6 @@
             </v-layout>
             <br>
             <iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/Bf6D-i8YpHg" frameborder="0" allowfullscreen></iframe>
-    
-    
             <h2 style="color:white; text-align: left"> Sinopse </h2>
             <br>
             <p style="color:white; text-align: left">{{ trailer.description }}</p>
@@ -47,6 +45,7 @@
         data: () => ({
             rating: 4.3,
             trailer: null,
+            watchTrailer: null,
             categoryNames: []
         }),
         created () {
@@ -65,10 +64,19 @@
                 .catch(err => {
                     throw err;         
                 });
+            },    
+            fetchWatchTrailer: function() {
+                getWatchTrailer(this.trailerID).then( watchTrailer => {
+                    this.watchTrailer = watchTrailer;
+                })
+                .catch(err => {
+                    throw err;         
+                });
             },       
         },
         mounted() {
             this.fetchTrailer();
+            this.fetchWatchTrailer();
         },
         computed: {
             categoriesList: function(){ 

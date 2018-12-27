@@ -93,13 +93,6 @@
                 this.listCategories();
             }
             this.listTrailers();
-        },
-        watch: {
-            // listCategories: function () {
-            //     if (window.localStorage /* function to detect if localstorage is supported*/) {
-            //         localStorage.setItem('listCategories', this.listCategories);
-            //     }
-            // }
         }
     }
 </script>
