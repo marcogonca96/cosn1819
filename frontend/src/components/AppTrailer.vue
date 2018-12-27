@@ -12,7 +12,7 @@
              </v-layout>
             <v-layout row child-flex wrap style="margin-top:3%">
                 <div class="col-4">
-                    <h2 style="color:white"> Category 1 </h2>
+                    <h2 style="color:white"> Categories {{ this.categoriesList }}  </h2>
                 </div>
                 <div class="col-4">
                     <h3 style="color:white"> Year {{ trailer.year }} </h3>
@@ -46,15 +46,19 @@
         },
         data: () => ({
             rating: 4.3,
-            trailer: null
+            trailer: null,
+            categoryNames: []
         }),
         created () {
+            console.log(`this.$route.params ${JSON.stringify(this.$route.params)}`);
             this.trailerID = this.$route.params.trailerID;
+            this.categoriesMapping = this.$store.getters.categoriesMapping || {};
         },
          methods: {
             fetchTrailer: function() {
                 getTrailer(this.trailerID).then( trailer => {
                     this.trailer = trailer;
+                    this.categoryNames = trailer.category.map(catId => this.categoriesMapping[catId].name)
                     // eslint-disable-next-line
                     console.log(`trailer:: ${JSON.stringify(trailer)}`);
                 })
@@ -65,6 +69,11 @@
         },
         mounted() {
             this.fetchTrailer();
-        }       
+        },
+        computed: {
+            categoriesList: function(){ 
+                return this.categoryNames.join(", ")    
+            }
+        }
     }
 </script>

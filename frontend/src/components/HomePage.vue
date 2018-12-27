@@ -8,26 +8,7 @@
                 </v-flex>
             </v-layout>
         </v-container>
-        <v-layout row justify-end>
-            <v-dialog v-model="dialog" scrollable max-width="300px">
-                <v-btn slot="activator" color="purple" dark>Subscribe Interests</v-btn>
-                <v-card>
-                    <v-card-title>Select a Category</v-card-title>
-                    <v-divider></v-divider>
-                    <v-list-tile v-for="category in categories" :key="category.id">
-                        <v-list-tile-content>
-                            <v-checkbox value="category.name" :key="category.id" :label="category.name" v-model="selected">
-                            </v-checkbox>
-                        </v-list-tile-content>
-                    </v-list-tile>
-                    <v-divider></v-divider>
-                    <v-card-actions>
-                        <v-btn color="purple" dark flat @click="dialog = true" to="/homePage">Close</v-btn>
-                        <v-btn color="purple" dark flat @click="dialog = false">Save</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-dialog>
-        </v-layout>
+
         <app-footer></app-footer>
     </div>
 </template>
@@ -75,7 +56,6 @@
             },
             listTrailers: function() {
                 getCatalogue().then(suc => {
-                        console.log(`suc ${JSON.stringify(suc)}`);
                         this.trailers = suc;
                         this.trailerCategoryMap = this.mapTrailerCategories(this.trailers, this.categoriesMapping);
                     })
@@ -86,8 +66,12 @@
             listCategories: function() {
                 getCategories().then(suc => {
                         this.categories = suc.data;
-                        this.categoriesMapping = this.mapByKey(this.categories, "id")
-                        // TODO: guardar em localStorage:  localStorage.categories + localStorage.categoriesMapping
+                        this.categoriesMapping = this.mapByKey(this.categories, "id");
+
+                        this.$store.dispatch('setCategories', {
+                            'categories': this.categories,
+                            'categoriesMapping': this.categoriesMapping
+                        });
                     })
                     .catch(err => {
                         throw err;
@@ -96,28 +80,28 @@
             },
         },
         mounted() {
+            
+            let categories = this.$store.getters.categories;
+            let categoriesMapping = this.$store.getters.categoriesMapping;
 
-              if (localStorage.listCategories) {
-                this.listCategories = localStorage.getItem('listCategories');
-               
+            // console.log(`this.$store.getters.categories =>  ${categories}`);
+
+            if (categories && categoriesMapping) {
+                this.listCategories = categories;
+                this.categoriesMapping = categoriesMapping;
             } else {
                 this.listCategories();
             }
-             this.listTrailers();
-             if (localStorage.trailerCategoryMap) {
-                this.trailerCategoryMap = localStorage.trailerCategoryMap;
-            } else {
-                this.trailerCategoryMap();
-            } 
+            this.listTrailers();
         },
         watch: {
-            listCategories: function () {
-                if (window.localStorage /* function to detect if localstorage is supported*/) {
-                localStorage.setItem('listCategories', this.listCategories);
-                }
-            }
-             }
-              }
+            // listCategories: function () {
+            //     if (window.localStorage /* function to detect if localstorage is supported*/) {
+            //         localStorage.setItem('listCategories', this.listCategories);
+            //     }
+            // }
+        }
+    }
 </script>
 
 <style>

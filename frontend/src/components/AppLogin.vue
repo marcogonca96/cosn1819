@@ -14,8 +14,6 @@
                   <v-form v-model="loginForm">
                     <v-text-field prepend-icon="person" :rules="formRules" v-model="email" label="Login" type="text"></v-text-field>
                     <v-text-field prepend-icon="lock" :rules="formRules" v-model="password" label="Password" id="password" type="password"></v-text-field>
-  
-  
                     <v-card-actions>
                       <div>
                         <router-link to="/">
@@ -73,9 +71,8 @@
             loggedin: true,
           })
           .catch(err => {
-            
-            this.alert = !this.$store.getters.authResult;
-            throw err;
+          this.alert = !this.$store.getters.authResult;
+          throw err;
           });
       //}
     },
