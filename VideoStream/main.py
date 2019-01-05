@@ -106,4 +106,4 @@ def video(id):
 
 if __name__ == '__main__':
     HOST = '0.0.0.0'
-    app.run(host=HOST, port=8080, debug=True)
+    app.run(host=HOST, port=8005, debug=True)
