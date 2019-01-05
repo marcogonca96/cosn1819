@@ -39,11 +39,11 @@ def find_videoname(catalogue_id):
     result = ''.join(row)
     return result.encode('ascii','ignore')
 
-@app.route('/videos')
-def home():
+@app.route('/videos/<id>')
+def home(id):
     response = render_template(
         'index.html',
-        video='/api',
+        video='/api/'+id,
     )
     return response
 
@@ -98,9 +98,9 @@ def get_range(request):
     else:
         return 0, None
    
-@app.route('/api')
-def video():
-    path = find_videoname(0)
+@app.route('/api/<id>')
+def video(id):
+    path = find_videoname(id)
     start, end = get_range(request)
     return partial_response(path, start, end)
 
