@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*- 
+
 from __future__ import print_function
 
 import datetime
@@ -17,26 +20,30 @@ import sqlite3
 
 from flask import Flask, render_template, Response
 from flask import request
-from frask import g 
-
-DATABASE = '/instance/videos.sqlite'
+from flask import g 
 
 logger = logging.getLogger(__name__)
 app = Flask(__name__)
 
-VIDEO_PATH = '/videos'
-
 MB = 1 << 20
 BUFF_SIZE = 10 * MB
 
+def find_videoname(catalogue_id):
+    
+    connection = sqlite3.connect('instance/videos.sqlite')
+    cursor = connection.cursor()    
 
-@app.route('/')
+    query = "SELECT path FROM videos WHERE catalogue_id=?"
+    result = cursor.execute(query, (catalogue_id,))
+    row = result.fetchone()
+    result = ''.join(row)
+    return result.encode('ascii','ignore')
+
+@app.route('/videos')
 def home():
-    logger.info('Rendering home page')
     response = render_template(
         'index.html',
-        time=str(datetime.datetime.now()),
-        video=VIDEO_PATH,
+        video='/api',
     )
     return response
 
@@ -90,23 +97,13 @@ def get_range(request):
         return start, end
     else:
         return 0, None
-
-
-@app.route(VIDEO_PATH)
+   
+@app.route('/api')
 def video():
-    path = 'videos/lionKingTrailer'
+    path = find_videoname(0)
     start, end = get_range(request)
     return partial_response(path, start, end)
 
-
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
-    print("Starting")
     HOST = '0.0.0.0'
-    #http_server = HTTPServer(WSGIContainer(app))
-    #http_server.listen(8080)
-    #IOLoop.instance().start()
-    print("Running")
-
-    # Standalone
     app.run(host=HOST, port=8080, debug=True)
