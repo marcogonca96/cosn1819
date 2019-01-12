@@ -2,13 +2,21 @@
     <v-card flat>
         <v-container fluid>
             <v-layout row child-flex wrap>
-                <div>
-                    <v-toolbar>
-                        <v-toolbar-title>Search</v-toolbar-title>
+                <div 
+  
+>
+                    <v-toolbar>     
+   <v-spacer class="hidden-xs-only"></v-spacer>
+                        <v-text-field
+         dark
+         solo
+ style="
+    width: 700px; margin-top: 0px;"
+         prepend-icon="search"
+         placeholder="Type Search...">
+      </v-text-field>
                         <v-spacer></v-spacer>
-                        <v-btn icon class="hidden-xs-only">
-                            <v-icon>search</v-icon>
-                        </v-btn>
+                        
                     </v-toolbar>
                 </div>
                 <div style="flex-basis: 5%">

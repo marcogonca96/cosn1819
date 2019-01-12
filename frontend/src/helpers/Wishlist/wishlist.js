@@ -17,7 +17,7 @@ export function addCategoriesToWishlist(categoryIds) {
           'jwt': localStorage.getItem('token')
         },
         body: JSON.stringify({
-          "categoryIds": categoryIds,
+          "categories": categoryIds,
         })
       }
   

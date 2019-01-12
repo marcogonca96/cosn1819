@@ -1,12 +1,13 @@
 import {
-    base_catalogue_url,
-    base_video_url
+    base_catalogue_url
 } from "../general";
 
-export function getTrailer(trailerId) {
+
+
+export function getCategories() {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = `${base_catalogue_url}api/catalogue/${trailerId}/`;
+      let requestUrl = base_catalogue_url + "api/category/";
   
       let requestOptions = {
         uri: requestUrl,
@@ -17,6 +18,7 @@ export function getTrailer(trailerId) {
           'cache-control': 'no-cache',
           'jwt': localStorage.getItem('token')
         },
+        //body: JSON.stringify({ "largura": largura, "comprimento": comprimento })
       }
   
       fetch(requestUrl, requestOptions).then(function (response) {
@@ -31,20 +33,26 @@ export function getTrailer(trailerId) {
     });
   }
 
-export function getWatchTrailer(trailerId) {
+  export function createVideo(username, password, email, level) {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = `${base_video_url}videos/${trailerId}`;
-     
+      let requestUrl = base_user_url + "api/user/";
+  
       let requestOptions = {
         uri: requestUrl,
-        method: "GET",
+        method: "POST",
         headers: {
           'Content-Type': 'application/json',
           'pragma': 'no-cache',
           'cache-control': 'no-cache',
           'jwt': localStorage.getItem('token')
         },
+        body: JSON.stringify({
+          "username": username,
+          "password": password,
+          "email": email,
+          "level": level
+        })
       }
   
       fetch(requestUrl, requestOptions).then(function (response) {

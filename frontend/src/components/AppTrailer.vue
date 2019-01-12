@@ -19,6 +19,10 @@
                 </div>
             </v-layout>
             <br>
+           
+            <div>
+            {{ watchTrailer}}
+            </div>
             <iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/Bf6D-i8YpHg" frameborder="0" allowfullscreen></iframe>
             <h2 style="color:white; text-align: left"> Sinopse </h2>
             <br>
