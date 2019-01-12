@@ -114,11 +114,7 @@ def video(id):
     path = find_videoname(id)
     start, end = get_range(request)
     return partial_response(path, start, end)
-
-app.route('/addvideo')
-def addVideo()
     
-
 if __name__ == '__main__':
     HOST = '0.0.0.0'
     app.run(host=HOST, port=8005, debug=True)
