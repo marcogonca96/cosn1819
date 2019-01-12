@@ -36,6 +36,7 @@ def after_request(response):
   response.headers.add('Access-Control-Allow-Headers',
   'Access-Control-Allow-Headers, Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers, Authorization, username')
   response.headers.add('Cache-Control', 'no-cache')
+  response.headers.add('Pragma', 'no-cache')
   return response
 
 def find_videoname(catalogue_id):
@@ -113,6 +114,8 @@ def video(id):
     path = find_videoname(id)
     start, end = get_range(request)
     return partial_response(path, start, end)
+
+app.route('/addvideo')
 
 if __name__ == '__main__':
     HOST = '0.0.0.0'
