@@ -1,15 +1,29 @@
+import logging
+
 from rest_framework.viewsets import ModelViewSet
 
 from catalogue.helpers.HttpException import HttpException
 from catalogue.helpers.HttpResponseHandler import HTTP
+from catalogue.helpers.SchemaValidator import SchemaValidator, SchemaException
 from catalogue.models.catalogue import Catalogue
 from catalogue.serializers.catalogueSerializer import CatalogueSerializer
+
+logger = logging.getLogger(__name__)
 
 
 class CatalogueViewSet(ModelViewSet):
 
-    queryset = Catalogue.objects.all()
-    serializer_class = CatalogueSerializer
-
     def create(self, request):
-        return HTTP.response(405, 'You are not allowed in here son, GTFO')
+        try:
+            SchemaValidator.validate_obj_structure(request.data, 'catalogue_post.json')
+
+            if 'file' not in request.FILES:
+                raise SchemaException('You need to send a file.')
+
+            logger.info("New file")
+
+        except HttpException as e:
+            return HTTP.response(e.http_code, e.http_detail)
+        except Exception as e:
+            return HTTP.response(400, 'Ocorreu um erro   inesperado',
+                                 'Unexpected Error. {}. {}.'.format(type(e).__name__, str(e)))

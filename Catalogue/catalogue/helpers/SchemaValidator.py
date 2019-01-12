@@ -10,7 +10,7 @@ class SchemaValidator:
     @staticmethod
     def validate_obj_structure(req_json, file_path):
         try:
-            with open('sdp/schemas/' + file_path, encoding='utf-8') as data_file:
+            with open('catalogue/schemas/' + file_path, encoding='utf-8') as data_file:
                 schema = json.loads(data_file.read())
             jsonschema.validate(req_json, schema)
 
@@ -46,3 +46,15 @@ class SchemaValidator:
             # elif type(path).__name__ == 'int':
             #     detail = "{0} (position: {1}) ".format(detail, path)
         return detail
+
+
+class SchemaException(Exception):
+    def __init__(self, details):
+        # Call the base class constructor with the parameters it needs
+        super(Exception, self).__init__(details)
+
+        # Now for your custom code...
+        self.code = 400
+        self.details = details
+        self.msg['message'] = "Bad request"
+        self.msg['details'] = details

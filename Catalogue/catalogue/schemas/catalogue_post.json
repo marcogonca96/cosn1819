@@ -1,0 +1,37 @@
+{
+    "type": "object",
+    "properties": {
+        "title": {
+            "type": [
+                "string"
+            ]
+        },
+        "year": {
+            "type": [
+                "integer"
+            ]
+        },
+        "description": {
+            "type": [
+                "string"
+            ]
+        },
+        "category": {
+            "type": [
+                "array"
+            ]
+        },
+        "image": {
+            "type": [
+                "string"
+            ]
+        }
+    },
+    "required": [
+        "title",
+        "year",
+        "description",
+        "category",
+        "image"
+    ]
+}
