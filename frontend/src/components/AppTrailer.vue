@@ -36,6 +36,7 @@
     import AppFooter from './AppFooter'
     import AppSearchbar from './AppSearchbar'
     import { getTrailer } from "@/helpers/Trailer/trailer.js";
+    import { getWatchTrailer } from "@/helpers/Trailer/trailer.js";
     
     export default {
         components: {
@@ -68,6 +69,7 @@
             fetchWatchTrailer: function() {
                 getWatchTrailer(this.trailerID).then( watchTrailer => {
                     this.watchTrailer = watchTrailer;
+                    console.log(`watchTrailer:: ${JSON.stringify(watchTrailer)}`);
                 })
                 .catch(err => {
                     throw err;         

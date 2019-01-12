@@ -22,14 +22,14 @@
                                     <v-divider></v-divider>
                                     <v-list-tile v-for="category in categories" :key="category.id">
                                         <v-list-tile-content>
-                                            <v-checkbox value="category.name" :key="category.id" :label="category.name" v-model="selected">
+                                            <v-checkbox :key="category.id" :label="category.name" v-model="selected[category.id]">
                                             </v-checkbox>
                                         </v-list-tile-content>
                                     </v-list-tile>
                                     <v-divider></v-divider>
                                     <v-card-actions>
                                         <v-btn color="purple" dark flat @click="dialog = true" to="/homePage">Close</v-btn>
-                                        <v-btn color="purple" dark flat @click="dialog = false">Save</v-btn>
+                                        <v-btn color="purple" dark flat v-on:click="save()">Save</v-btn>
                                     </v-card-actions>
                                 </v-card>
                             </v-dialog>
@@ -52,16 +52,17 @@
 
 <script>
     import {
-    
         getCategories
     } from "@/helpers/Home/home.js";
+      import {
+        addCategoriesToWishlist
+    } from "@/helpers/Wishlist/wishlist.js";
     
     export default {
         data() {
             return {
-    
                 categories: [],
-    
+                selected: {}
             }
         },
         methods: {
@@ -82,17 +83,26 @@
             logout: function() {
                 console.log("exit");
                 this.$store.commit("logout");
+            },
+            save() { 
+                console.log(`selected: ${JSON.stringify(this.selected)}`);
+                let categoryIds = Object.keys(this.selected);
+                console.log(`categoryIds ${categoryIds}`);   
+                addCategoriesToWishlist(categoryIds).then(suc => {
+                    console.log("Wishes created!");
+                }).catch(err => {
+                    throw err;
+                })
             }
         },
-        mounted() {
-    
+        mounted() {  
             let categories = this.$store.getters.categories;
     
             if (categories) {
                 this.categories = categories;
             } else {
                 this.listCategories();
-            }    
+            }
         }
     }
 </script>

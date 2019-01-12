@@ -1,5 +1,6 @@
 import {
-    base_catalogue_url
+    base_catalogue_url,
+    base_video_url
 } from "../general";
 
 export function getTrailer(trailerId) {
@@ -30,11 +31,11 @@ export function getTrailer(trailerId) {
     });
   }
 
-  export function getWatchTrailer(trailerId) {
+export function getWatchTrailer(trailerId) {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = `${base_catalogue_url}api/catalogue/${trailerId}/`;
-  
+      let requestUrl = `${base_video_url}api/videos/${trailerId}/`;
+     
       let requestOptions = {
         uri: requestUrl,
         method: "GET",
