@@ -20,10 +20,12 @@ import sqlite3
 
 from flask import Flask, render_template, Response
 from flask import request
+from flask_cors import CORS
 from flask import g 
 
 logger = logging.getLogger(__name__)
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 MB = 1 << 20
 BUFF_SIZE = 10 * MB
