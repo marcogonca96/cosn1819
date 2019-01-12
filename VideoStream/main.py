@@ -18,17 +18,22 @@ import time
 import pprint
 import sqlite3
 
-from flask import Flask, render_template, Response
-from flask import request
+from flask import Flask, render_template, Response, request, g
 from flask_cors import CORS
-from flask import g 
 
 logger = logging.getLogger(__name__)
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app)
 
 MB = 1 << 20
 BUFF_SIZE = 10 * MB
+
+@app.after_request
+def after_request(response):
+  response.headers.add('Access-Control-Allow-Origin', '*')
+  response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+  response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+  return response
 
 def find_videoname(catalogue_id):
     
@@ -41,7 +46,7 @@ def find_videoname(catalogue_id):
     result = ''.join(row)
     return result.encode('ascii','ignore')
 
-@app.route('/videos/<id>')
+@app.route('/videos/<id>', methods = ['GET'])
 def home(id):
     response = render_template(
         'index.html',
