@@ -116,6 +116,8 @@ def video(id):
     return partial_response(path, start, end)
 
 app.route('/addvideo')
+def addVideo()
+    
 
 if __name__ == '__main__':
     HOST = '0.0.0.0'
