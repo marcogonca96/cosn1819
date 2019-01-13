@@ -1,11 +1,11 @@
 import {
-    base_catalogue_url
+    baseCatalogueURL
 } from "../general";
 
 export function getCatalogue() {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = base_catalogue_url + "api/catalogue/";
+      let requestUrl = baseCatalogueURL + "api/catalogue/";
   
       let requestOptions = {
         uri: requestUrl,
@@ -33,7 +33,7 @@ export function getCatalogue() {
   export function getCategories() {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = base_catalogue_url + "api/category/";
+      let requestUrl = baseCatalogueURL + "api/category/";
   
       let requestOptions = {
         uri: requestUrl,

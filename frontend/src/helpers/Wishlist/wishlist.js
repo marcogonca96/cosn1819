@@ -1,11 +1,11 @@
 import {
-  base_wish_url
+  baseWishURL
 } from "../general";
 
 export function addCategoriesToWishlist(categoryIds) {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = base_wish_url + "api/wishlist/";
+      let requestUrl = baseWishURL + "api/wishlist/";
   
       let requestOptions = {
         uri: requestUrl,

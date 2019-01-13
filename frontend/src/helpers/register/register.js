@@ -1,11 +1,11 @@
 import {
-    base_user_url
+    baseUserURL
 } from "../general";
 
 export function createUser(username, password, email, level) {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = base_user_url + "api/user/";
+      let requestUrl = baseUserURL + "api/user/";
   
       let requestOptions = {
         uri: requestUrl,
