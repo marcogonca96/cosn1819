@@ -115,6 +115,24 @@ def video(id):
     start, end = get_range(request)
     return partial_response(path, start, end)
 
+@app.route('/add_video', methods=['POST'])
+def add_video():
+
+    connection = sqlite3.connect('instance/videos.sqlite')
+    cursor = connection.cursor()    
+
+    catalogue_id = request.form.get('catalogue_id')
+    path = request.form.get('path')
+    
+    query = "INSERT INTO videos (catalogue_id, path) VALUES (?,?)"
+    result = cursor.execute(query, (catalogue_id, path))
+
+    connection.commit()
+
+    return jsonify(isError= False,
+                    message= "Success",
+                    statusCode= 200), 200
+
 if __name__ == '__main__':
     HOST = '0.0.0.0'
     app.run(host=HOST, port=8005, debug=True)
