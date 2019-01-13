@@ -34,7 +34,7 @@ export function getCategories() {
     });
   }
 
-  export function createTrailer(title, sinopse, year, categories, photo) {
+  export function createTrailer(title, sinopse, year, categories, image) {
     return new Promise(function (resolve, reject) {
   
       let requestUrl = baseCatalogueURL + "api/catalogue/";
@@ -44,8 +44,8 @@ export function getCategories() {
       data.append('title', title)
       data.append('year', year)
       data.append('sinopse', sinopse)
-      data.append('categoryIds', categories)
-      data.append('photo', photo)
+      data.append('catalogueIds', categories)
+      data.append('image', image)
   
       let requestOptions = {
         uri: requestUrl,
@@ -72,14 +72,14 @@ export function getCategories() {
     });
   }
 
-  export function addVideoTrailer(categoryID, trailer) {
+  export function addVideoTrailer(catalogueId, trailer) {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = baseVideoURL + "api/user/";
+      let requestUrl = baseVideoURL + "video/";
   
       let data = new FormData();
 
-      data.append('categoryID', categoryID)
+      data.append('catalogueId', catalogueId)
       data.append('trailer', trailer)
 
 

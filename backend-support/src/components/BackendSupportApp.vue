@@ -18,8 +18,8 @@
 	
 				<v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
 					<video :src="videoUrl" height="150" v-if="videoUrl" />
-					<v-text-field label="Select Video" @click='pickFile' v-model='videoName' prepend-icon='attach_file'></v-text-field>
-					<input type="file" style="display: none" ref="video" accept="video/*" @change="onFilePicked">
+					<v-text-field label="Select Video" @click='pickFileVideo' v-model='videoName' prepend-icon='attach_file'></v-text-field>
+					<input type="file" style="display: none" ref="video" accept="video/*" @change="onFilePickedVideo">
 				</v-flex>
 	
 				<v-container fluid>
@@ -69,6 +69,10 @@
 			imageName: '',
 			videoName: '',
 			imageFile: '',
+				videoFile: '',
+			imageUrl: '',
+			videoURL: '',
+			
 			categories: [],
 			selected: {},
 	
@@ -90,6 +94,7 @@
 				const files = e.target.files
 				if (files[0] !== undefined) {
 					this.imageName = files[0].name
+					
 					if (this.imageName.lastIndexOf('.') <= 0) {
 						return
 					}
@@ -105,6 +110,29 @@
 					this.imageUrl = ''
 				}
 			},
+			pickFileVideo() {
+				this.$refs.video.click()
+			},
+			onFilePickedVideo(e) {
+				const files = e.target.files
+				if (files[0] !== undefined) {
+					this.videoName = files[0].name
+					
+					if (this.videoName.lastIndexOf('.') <= 0) {
+						return
+					}
+					const fr = new FileReader()
+					fr.readAsDataURL(files[0])
+					fr.addEventListener('load', () => {
+						this.videoUrl = fr.result
+						this.videoFile = files[0] // this is an image file that can be sent to server...
+					})
+				} else {
+					this.videoName = ''
+					this.videoFile = ''
+					this.videoUrl = ''
+				}
+			},
 			clear() {
 				this.$refs.form.reset()
 			},
@@ -112,11 +140,8 @@
 				let categoryIds = Object.keys(this.selected);
 				console.log(`categoryIds ${categoryIds}`);
 				if (this.$refs.formAddNewTrailer.validate()) {
-
-
-	
-					createTrailer(this.title, this.sinopse, this.year, this.imageName).then(response => {
-						return addVideoTrailer(response, this.videoUrl)
+					createTrailer(this.title, this.sinopse, this.year, this.categories, this.imageFile).then(response => {
+						return addVideoTrailer(response.catalogueId, this.videoFile)
 					}).then(suc => {
 						console.log("finished!");
 					}).catch(err => {
