@@ -1,6 +1,13 @@
 version: '3'
 
 services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - 5672:5672 # port for the daemon API
+      - 15672:15672 # port for the RabbitMQ management interface
   wishlist:
     build: ./Wishlist
     command: python3 manage.py runserver 0.0.0.0:8000 
@@ -25,7 +32,9 @@ services:
       - ./Catalogue/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8002:8002"
-  
+    depends_on:
+      - rabbitmq
+
   videostream:
     build: ./VideoStream
     command: python main.py 
@@ -34,6 +43,14 @@ services:
       - ./VideoStream/instance/videos.sqlite:/code/videos.sqlite:rw
     ports:
       - "8005:8005"
+
+  consumer-service:
+    build: ./consumer-service
+    command: python consumer.py
+    depends_on:
+      - rabbitmq
+
+      
 #  frontend:
 #    build: ./frontend
 #    command: npm run serve 

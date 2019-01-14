@@ -6,9 +6,9 @@ from __future__ import print_function
 import datetime
 import logging
 
-from tornado.wsgi import WSGIContainer
-from tornado.httpserver import HTTPServer
-from tornado.ioloop import IOLoop
+# from tornado.wsgi import WSGIContainer
+# from tornado.httpserver import HTTPServer
+# from tornado.ioloop import IOLoop
 
 import os
 import re
@@ -18,11 +18,18 @@ import time
 import pprint
 import sqlite3
 
-from flask import Flask, render_template, Response, request, g
+from flask import Flask, render_template, Response, request, g, flash, redirect, url_for, send_from_directory, jsonify
 from flask_cors import CORS
+from werkzeug.utils import secure_filename
+
+UPLOAD_FOLDER = 'videos/'
 
 logger = logging.getLogger(__name__)
 app = Flask(__name__)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+app.secret_key = 'super secret key'
+app.config['SESSION_TYPE'] = 'filesystem'
 CORS(app)
 
 MB = 1 << 20
@@ -58,7 +65,6 @@ def home(id):
     )
     return response
 
-
 def partial_response(path, start, end=None):
     logger.info('Requested: %s, %s', start, end)
     file_size = os.path.getsize(path)
@@ -93,7 +99,6 @@ def partial_response(path, start, end=None):
     logger.info('Response: %s', response)
     logger.info('Response: %s', response.headers)
     return response
-
 
 def get_range(request):
     range = request.headers.get('Range')
@@ -132,6 +137,15 @@ def add_video():
     return jsonify(isError= False,
                     message= "Success",
                     statusCode= 200), 200
+
+@app.route('/upload_video', methods=['GET', 'POST'])
+def upload_video():
+    if request.method == 'POST':
+        file = request.files['file']
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+    return render_template("upload.html")
 
 if __name__ == '__main__':
     HOST = '0.0.0.0'

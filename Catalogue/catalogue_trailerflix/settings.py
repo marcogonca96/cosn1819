@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
-
+import logging.config
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -147,5 +147,31 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-MEDIA_ROOT = '/code/img/'
+MEDIA_ROOT = 'img/'
 MEDIA_URL = '/img/'
+
+
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'colored_console': {
+            '()': 'colorlog.ColoredFormatter',
+            'format': "%(asctime)-30s%(log_color)s%(levelname)-10s%(white)s%(module)-20s%(reset)s %(blue)s%(message)s"
+        }
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'colored_console',
+            'stream': 'ext://sys.stdout'
+        },
+    },
+    'loggers': {
+        # root logger
+        '': {
+            'level': 'INFO',
+            'handlers': ['console'],
+        },
+    },
+})

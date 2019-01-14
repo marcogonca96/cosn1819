@@ -1,6 +1,8 @@
+colorlog==4.0.2
 Django==2.1.4
 django-cors-headers==2.4.0
 djangorestframework==3.9.0
 jsonschema==2.6.0
+PyJWT==1.7.1
 pytz==2018.7
 django-notifs==2.6.0
