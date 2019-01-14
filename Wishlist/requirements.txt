@@ -3,3 +3,4 @@ django-cors-headers==2.4.0
 djangorestframework==3.9.0
 jsonschema==2.6.0
 pytz==2018.7
+django-notifs==2.6.0
