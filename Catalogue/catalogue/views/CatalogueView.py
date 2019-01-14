@@ -1,7 +1,9 @@
 import json
 import logging
 
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
+from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 
 from catalogue.helpers.HttpException import HttpException
@@ -60,9 +62,17 @@ class CatalogueViewSet(ModelViewSet):
             return HTTP.response(400, 'Ocorreu um erro   inesperado',
                                  'Unexpected Error. {}. {}.'.format(type(e).__name__, str(e)))
 
-        return HTTP.response(200, "Amazing")
+        return HTTP.response(200, "New Catalogue Entry", new_video)
 
     def list(self, request):
         query = Catalogue.objects.all()
         data = CatalogueSerializer(query, many=True).to_representation(query)
-        return HTTP.response(200, "Amazing", data=data)
+        return HTTP.response(200, "Catalogue List", data=data)
+
+    def retrieve(self, request, pk=None):
+        try:
+            query = Catalogue.objects.get(id=pk)
+            data = CatalogueSerializer(query).to_representation(query)
+            return HTTP.response(200, "Amazing", data=data)
+        except ObjectDoesNotExist:
+            return HTTP.response(404, "Not Found")
