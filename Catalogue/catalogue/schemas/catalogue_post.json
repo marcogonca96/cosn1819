@@ -8,7 +8,7 @@
         },
         "year": {
             "type": [
-                "integer"
+                "string"
             ]
         },
         "description": {
@@ -18,7 +18,7 @@
         },
         "category": {
             "type": [
-                "array"
+                "string"
             ]
         },
         "image": {

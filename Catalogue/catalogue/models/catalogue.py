@@ -14,9 +14,11 @@ class Catalogue(models.Model):
     title = models.CharField(max_length=256)
     year = models.IntegerField(null=True)
     description = models.CharField(max_length=256)
-    category = models.ManyToManyField(Category)
+    category = models.ManyToManyField(Category, null=True)
     image = models.ImageField(upload_to=get_image_path, blank=True, null=True)
     rating = models.FloatField(null=False, default=0)
+
+    objects = models.Manager()
 
     class Meta:
         db_table = 'CATALOGUE'

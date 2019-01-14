@@ -48,13 +48,3 @@ class SchemaValidator:
         return detail
 
 
-class SchemaException(Exception):
-    def __init__(self, details):
-        # Call the base class constructor with the parameters it needs
-        super(Exception, self).__init__(details)
-
-        # Now for your custom code...
-        self.code = 400
-        self.details = details
-        self.msg['message'] = "Bad request"
-        self.msg['details'] = details
