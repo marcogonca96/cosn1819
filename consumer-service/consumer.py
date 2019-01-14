@@ -1,6 +1,8 @@
 import pika
 import time
 
+#delay to start rabbitmq
+time.sleep(5)
 
 connection = pika.BlockingConnection(pika.ConnectionParameters(host='rabbitmq'))
 channel = connection.channel()
