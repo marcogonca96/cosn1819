@@ -1,3 +1,5 @@
+import logging
+
 import bcrypt
 import jwt
 from rest_framework.viewsets import GenericViewSet
@@ -8,6 +10,8 @@ from ..helpers.SchemaValidator import SchemaValidator
 from django.conf import settings
 from rest_framework import viewsets
 from ..models.User import User
+
+logger = logging.getLogger(__name__)
 
 
 class AuthViewSet(GenericViewSet):
@@ -32,7 +36,7 @@ class AuthViewSet(GenericViewSet):
                 'jwt': jwt_encoded,
                 'username': user.username,
             }
-
+            logger.info("User login: {}".format(user.email))
             return HTTP.response(200, data=data)
 
         except User.DoesNotExist as e:
@@ -76,7 +80,7 @@ class AuthViewSet(GenericViewSet):
                 password=str(bcrypt.hashpw(request.data['password'].encode('utf8'), bcrypt.gensalt()), 'utf8'),
             )
             user.save()
-
+            logger.info("New user: {}".format(data['email']))
         except HttpException as e:
             return HTTP.response(e.http_code, e.http_detail)
         except Exception as e:
