@@ -40,13 +40,14 @@ class CatalogueViewSet(ModelViewSet):
                 filename = image.name
                 new_video.image.save("%s" % filename, image)
             with transaction.atomic():
-                producer = Producer(host='localhost', channel='wish')
+                channel='wish'
+                producer = Producer(host='rabbitmq', channel=channel)
                 caterogies = list(Category.objects.filter(id__in=list_of_caterogies).all())
                 new_video.category.add(*caterogies)
                 new_video.save()
                 message = {}
                 message['categories'] = list_of_caterogies
-                producer.send_message(message=json.dumps(list_of_caterogies), queue='wish')
+                producer.send_message(message=json.dumps(list_of_caterogies), queue=channel)
 
             logger.info("New Video")
 
