@@ -56,12 +56,15 @@
             },
             listTrailers: function() {
                 getCatalogue().then(suc => {
-                        this.trailers = suc;
-                        this.trailerCategoryMap = this.mapTrailerCategories(this.trailers, this.categoriesMapping);
-                    })
-                    .catch(err => {
-                        throw err;
-                    });
+                    console.log(`SUC ${JSON.stringify(suc)}`);
+                    this.trailers = suc.data;
+                    this.trailerCategoryMap = this.mapTrailerCategories(this.trailers, this.categoriesMapping);
+                    console.log(`this.trailerCategoryMap ${this.trailerCategoryMap}`);
+                })
+                .catch(err => {
+                    console.log(`ERROR: ${err}`);
+                    throw err;
+                });
             },
             listCategories: function() {
                 getCategories().then(suc => {
@@ -84,7 +87,8 @@
             let categories = this.$store.getters.categories;
             let categoriesMapping = this.$store.getters.categoriesMapping;
 
-            // console.log(`this.$store.getters.categories =>  ${categories}`);
+            console.log(`this.$store.getters.categories =>  ${JSON.stringify(categories)}`);
+            console.log(`this.$store.getters.categoriesMapping =>  ${JSON.stringify(categoriesMapping)}`);
 
             if (categories && categoriesMapping) {
                 this.listCategories = categories;
@@ -93,7 +97,7 @@
                 this.listCategories();
             }
             this.listTrailers();
-        }
+        },
     }
 </script>
 

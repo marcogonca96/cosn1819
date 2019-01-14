@@ -17,6 +17,9 @@ logger = logging.getLogger(__name__)
 
 
 class CatalogueViewSet(ModelViewSet):
+        
+    queryset = Catalogue.objects.all()
+    serializer_class = CatalogueSerializer
 
     def create(self, request):
         try:

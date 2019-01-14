@@ -8,7 +8,7 @@
 		<v-container fluid>
 			<v-form v-model="formAddNewTrailer" ref="formAddNewTrailer" lazy-validation>
 				<v-text-field v-model="title" :rules="titleErrors" label="Title" required @input="$v.title.$touch()" @blur="$v.title.$touch()"></v-text-field>
-				<v-text-field v-model="sinopse" :rules="sinopseErrors" label="Sinopse" required @input="$v.sinopse.$touch()" @blur="$v.sinopse.$touch()"></v-text-field>
+				<v-text-field v-model="description" :rules="descriptionErrors" label="Sinopse" required @input="$v.description.$touch()" @blur="$v.description.$touch()"></v-text-field>
 				<v-text-field v-model="year" :rules="yearErrors" label="Year" type="number" required @input="$v.year.$touch()" @blur="$v.year.$touch()"></v-text-field>
 				<v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
 					<img :src="imageUrl" height="150" v-if="imageUrl" />
@@ -56,8 +56,8 @@
 			titleRules: [
 				v => !!v || 'Title is required'
 			],
-			sinopse: '',
-			sinopseRules: [
+			description: '',
+			descriptionRules: [
 				v => !!v || 'Sinopse is required'
 			],
 			year: '',
@@ -140,7 +140,7 @@
 				let categoryIds = Object.keys(this.selected);
 				console.log(`categoryIds ${categoryIds}`);
 				if (this.$refs.formAddNewTrailer.validate()) {
-					createTrailer(this.title, this.sinopse, this.year, this.categories, this.imageFile).then(response => {
+					createTrailer(this.title, this.description, this.year, categoryIds, this.imageFile,this.imageName).then(response => {
 						return addVideoTrailer(response.catalogueId, this.videoFile)
 					}).then(suc => {
 						console.log("finished!");

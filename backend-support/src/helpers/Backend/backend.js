@@ -34,17 +34,20 @@ export function getCategories() {
     });
   }
 
-  export function createTrailer(title, sinopse, year, categories, image) {
+  export function createTrailer(title, description, year, categoryIds, file,image) {
+    console.log(`categoryIds ${(categoryIds)}`);
+    console.log(`description ${(description)}`);
     return new Promise(function (resolve, reject) {
   
       let requestUrl = baseCatalogueURL + "api/catalogue/";
-
+      
       let data = new FormData();
-
+      
       data.append('title', title)
       data.append('year', year)
-      data.append('sinopse', sinopse)
-      data.append('catalogueIds', categories)
+      data.append('description', description)
+      data.append('category', categoryIds)
+      data.append('file', file)
       data.append('image', image)
   
       let requestOptions = {
