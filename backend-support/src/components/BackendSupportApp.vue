@@ -142,7 +142,9 @@
 				if (this.$refs.formAddNewTrailer.validate()) {
 					createTrailer(this.title, this.description, this.year, categoryIds, this.imageFile,this.imageName).then(response => {
 						console.log(`catalogue_ID ${response.data}`);
-						return addVideoTrailer(response.data, this.videoFile);
+						path = "videos/" +  videoName;
+						console.log(`path ${path}`);
+						return addVideoTrailer(response.data, this.videoFile, this.path);
 					}).then(suc => {
 						console.log("finished!");
 						this.$refs.formAddNewTrailer.reset();
