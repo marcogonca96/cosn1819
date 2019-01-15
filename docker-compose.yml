@@ -40,7 +40,7 @@ services:
     command: python main.py 
     volumes:
       - .:/videostream
-      - ./VideoStream/instance/videos.sqlite:/code/instance/videos.sqlite:rw
+      - ./VideoStream/db/videos.sqlite:/code/db/videos.sqlite:rw
       - ./VideoStream/videos:/code/videos
     ports:
       - "8005:8005"
