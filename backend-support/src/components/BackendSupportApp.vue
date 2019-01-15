@@ -7,9 +7,9 @@
 	
 		<v-container fluid>
 			<v-form v-model="formAddNewTrailer" ref="formAddNewTrailer" lazy-validation>
-				<v-text-field v-model="title" :rules="titleErrors" label="Title" required @input="$v.title.$touch()" @blur="$v.title.$touch()"></v-text-field>
-				<v-text-field v-model="description" :rules="descriptionErrors" label="Sinopse" required @input="$v.description.$touch()" @blur="$v.description.$touch()"></v-text-field>
-				<v-text-field v-model="year" :rules="yearErrors" label="Year" type="number" required @input="$v.year.$touch()" @blur="$v.year.$touch()"></v-text-field>
+				<v-text-field v-model="title"  label="Title" required @input="$v.title.$touch()" @blur="$v.title.$touch()"></v-text-field>
+				<v-text-field v-model="description"  label="Sinopse" required @input="$v.description.$touch()" @blur="$v.description.$touch()"></v-text-field>
+				<v-text-field v-model="year"  label="Year" type="number" required @input="$v.year.$touch()" @blur="$v.year.$touch()"></v-text-field>
 				<v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
 					<img :src="imageUrl" height="150" v-if="imageUrl" />
 					<v-text-field label="Select Image" @click='pickFile' v-model='imageName' prepend-icon='attach_file'></v-text-field>
@@ -134,16 +134,18 @@
 				}
 			},
 			clear() {
-				this.$refs.form.reset()
+				this.$refs.formAddNewTrailer.reset()
 			},
 			submit() {
 				let categoryIds = Object.keys(this.selected);
 				console.log(`categoryIds ${categoryIds}`);
 				if (this.$refs.formAddNewTrailer.validate()) {
 					createTrailer(this.title, this.description, this.year, categoryIds, this.imageFile,this.imageName).then(response => {
-						return addVideoTrailer(response.catalogueId, this.videoFile)
+						console.log(`catalogue_ID ${JSON.stringify(Response.data)}`);
+						return addVideoTrailer(response.data, this.videoFile);
 					}).then(suc => {
 						console.log("finished!");
+						this.$refs.formAddNewTrailer.reset();
 					}).catch(err => {
 						throw err;
 					})

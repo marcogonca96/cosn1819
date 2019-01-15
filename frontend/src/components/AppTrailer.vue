@@ -68,7 +68,7 @@
                 getTrailer(this.trailerID).then(trailer => {
                         this.trailer = trailer;
                         this.videoURL = `${baseVideoURL}videos/${this.trailer.id}`;
-                        this.categoryNames = trailer.category.map(catId => this.categoriesMapping[catId].name)
+                        this.categoryNames = trailer.category.map(catId => this.categoriesMapping[catId].name);
                         // eslint-disable-next-line
                         console.log(`trailer:: ${JSON.stringify(trailer)}`);
                     })
