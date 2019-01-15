@@ -7,14 +7,7 @@
 >
                     <v-toolbar>     
    <v-spacer class="hidden-xs-only"></v-spacer>
-                        <v-text-field
-         dark
-         solo
- style="
-    width: 700px; margin-top: 0px;"
-         prepend-icon="search"
-         placeholder="Type Search...">
-      </v-text-field>
+                      
                         <v-spacer></v-spacer>
                         
                     </v-toolbar>
@@ -44,12 +37,7 @@
                                 </v-card>
                             </v-dialog>
                         </v-layout>
-                        <v-badge overlap>
-                            <span slot="badge">3</span>
-                            <v-avatar color="purple red--after">
-                                <v-icon dark>notifications</v-icon>
-                            </v-avatar>
-                        </v-badge>
+                       
                         <v-btn fab dark color="indigo" v-on:click="logout()" @logout="logout">
                             <v-icon dark>account_circle</v-icon>
                         </v-btn>
