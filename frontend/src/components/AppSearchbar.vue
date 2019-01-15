@@ -36,7 +36,9 @@
                                     </v-list-tile>
                                     <v-divider></v-divider>
                                     <v-card-actions>
-                                        <v-btn color="purple" dark flat @click="dialog = true" to="/homePage">Close</v-btn>
+                                        <router-link to="/homePage">
+                                        <v-btn color="purple" dark flat @click="dialog = false" >Close</v-btn>
+                                         </router-link>
                                         <v-btn color="purple" dark flat v-on:click="save()">Save</v-btn>
                                     </v-card-actions>
                                 </v-card>
@@ -65,12 +67,14 @@
       import {
         addCategoriesToWishlist
     } from "@/helpers/Wishlist/wishlist.js";
-    
+    import router from '../router/index'
+
     export default {
         data() {
             return {
                 categories: [],
-                selected: {}
+                selected: {},
+                dialog: false
             }
         },
         methods: {
@@ -97,7 +101,9 @@
                 let categoryIds = Object.keys(this.selected);
                 console.log(`categoryIds ${categoryIds}`);   
                 addCategoriesToWishlist(categoryIds).then(suc => {
+                    
                     console.log("Wishes created!");
+                    this.dialog = false;
                 }).catch(err => {
                     throw err;
                 })
