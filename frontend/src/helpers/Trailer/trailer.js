@@ -1,12 +1,12 @@
 import {
-    base_catalogue_url,
-    base_video_url
+    baseCatalogueURL,
+    baseVideoURL
 } from "../general";
 
 export function getTrailer(trailerId) {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = `${base_catalogue_url}api/catalogue/${trailerId}/`;
+      let requestUrl = `${baseCatalogueURL}api/catalogue/${trailerId}/`;
   
       let requestOptions = {
         uri: requestUrl,
@@ -34,12 +34,13 @@ export function getTrailer(trailerId) {
 export function getWatchTrailer(trailerId) {
     return new Promise(function (resolve, reject) {
   
-      let requestUrl = `${base_video_url}videos/${trailerId}`;
+      let requestUrl = `${baseVideoURL}videos/${trailerId}`;
      
       let requestOptions = {
         uri: requestUrl,
         method: "GET",
         headers: {
+          'Accept': 'application/json',
           'Content-Type': 'application/json',
           'pragma': 'no-cache',
           'cache-control': 'no-cache',
@@ -49,7 +50,8 @@ export function getWatchTrailer(trailerId) {
   
       fetch(requestUrl, requestOptions).then(function (response) {
         if (response.status === 200) {
-          return resolve(response.json());
+          return resolve(response.text());
+          
         } else {
           return reject(Error("An error has occurred! Please try again."));
         }

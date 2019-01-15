@@ -1,12 +1,12 @@
 
 import {
-  base_user_url
+  baseUserURL
 } from "../general";
 
 export function signIn(email, password) {
   return new Promise(function (resolve, reject) {
 
-    let requestUrl = base_user_url + "api/login/";
+    let requestUrl = baseUserURL + "api/login/";
 
     let requestOptions = {
       uri: requestUrl,

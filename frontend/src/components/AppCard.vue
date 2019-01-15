@@ -47,11 +47,7 @@
 </template>
 
 <script>
-  /*import {
-      base_catalogue_url
-  } from "../helpers/general.js";
-  */export default {
-    props: ['trailer', 'categories']
-       
+  export default {
+    props: ['trailer', 'categories']     
   }
 </script>

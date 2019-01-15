@@ -64,7 +64,7 @@ import router from '../router/index'
       ],
       passwordRules: [
         v => !!v || 'Password is required',
-        v => (v && v.length >= 7 &&v.length <= 10) || 'Password must have more than 7 and less than 10 characters'
+        v => (v && v.length >= 7 && v.length <= 10) || 'Password must have more than 7 and less than 10 characters'
       ],
       confirmpassRules: [
         v => !!v || 'Confirm Password is required'

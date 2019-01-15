@@ -4,26 +4,23 @@
         <div class="text-xs-center" style="margin-top:6%;margin-left:15%;margin-right:15%;margin-bottom:10%">
             <v-layout row child-flex wrap style="margin-top:3%">
                 <router-link to="/homePage">
-             <v-btn icon class="hidden-xs-only">
-              <v-icon>arrow_back</v-icon>
-            </v-btn>
-            </router-link>
-            <h1 style="color:white; text-align:left"> Trailer {{ trailer.title }}  </h1>
-             </v-layout>
+                    <v-btn icon class="hidden-xs-only">
+                        <v-icon>arrow_back</v-icon>
+                    </v-btn>
+                </router-link>
+                <h1 style="color:white; text-align:left"> Trailer {{ trailer.title }} </h1>
+            </v-layout>
             <v-layout row child-flex wrap style="margin-top:3%">
                 <div class="col-4">
-                    <h2 style="color:white"> Categories: {{ this.categoriesList }}  </h2>
+                    <h2 style="color:white"> Categories: {{ this.categoriesList }} </h2>
                 </div>
                 <div class="col-4">
                     <h3 style="color:white"> Year {{ trailer.year }} </h3>
                 </div>
             </v-layout>
             <br>
-           
-            <div>
-            {{ watchTrailer}}
-            </div>
-            <iframe id="ytplayer" type="text/html" width="640" height="360" src="https://www.youtube.com/embed/Bf6D-i8YpHg" frameborder="0" allowfullscreen></iframe>
+    
+            <iframe id="ytplayer" type="text/html" width="800" height="400" :src="videoURL" frameborder="0" allowfullscreen></iframe>
             <h2 style="color:white; text-align: left"> Sinopse </h2>
             <br>
             <p style="color:white; text-align: left">{{ trailer.description }}</p>
@@ -39,8 +36,15 @@
 <script>
     import AppFooter from './AppFooter'
     import AppSearchbar from './AppSearchbar'
-    import { getTrailer } from "@/helpers/Trailer/trailer.js";
-    import { getWatchTrailer } from "@/helpers/Trailer/trailer.js";
+    import {
+        getTrailer
+    } from "@/helpers/Trailer/trailer.js";
+    import {
+        getWatchTrailer
+    } from "@/helpers/Trailer/trailer.js";
+    import {
+      baseVideoURL
+    } from "../helpers/general.js";
     
     export default {
         components: {
@@ -50,43 +54,45 @@
         data: () => ({
             rating: 4.3,
             trailer: null,
+            videoURL: null,
             watchTrailer: null,
             categoryNames: []
         }),
-        created () {
+        created() {
             console.log(`this.$route.params ${JSON.stringify(this.$route.params)}`);
             this.trailerID = this.$route.params.trailerID;
             this.categoriesMapping = this.$store.getters.categoriesMapping || {};
         },
-         methods: {
+        methods: {
             fetchTrailer: function() {
-                getTrailer(this.trailerID).then( trailer => {
-                    this.trailer = trailer;
-                    this.categoryNames = trailer.category.map(catId => this.categoriesMapping[catId].name)
-                    // eslint-disable-next-line
-                    console.log(`trailer:: ${JSON.stringify(trailer)}`);
-                })
-                .catch(err => {
-                    throw err;         
-                });
-            },    
+                getTrailer(this.trailerID).then(trailer => {
+                        this.trailer = trailer;
+                        this.videoURL = `${baseVideoURL}videos/${this.trailer.id}`;
+                        this.categoryNames = trailer.category.map(catId => this.categoriesMapping[catId].name)
+                        // eslint-disable-next-line
+                        console.log(`trailer:: ${JSON.stringify(trailer)}`);
+                    })
+                    .catch(err => {
+                        throw err;
+                    });
+            },
             fetchWatchTrailer: function() {
-                getWatchTrailer(this.trailerID).then( watchTrailer => {
-                    this.watchTrailer = watchTrailer;
-                    console.log(`watchTrailer:: ${JSON.stringify(watchTrailer)}`);
-                })
-                .catch(err => {
-                    throw err;         
-                });
-            },       
+                getWatchTrailer(this.trailerID).then(watchTrailer => {
+                        this.watchTrailer = watchTrailer;
+                        console.log(`watchTrailer:: ${JSON.stringify(watchTrailer)}`);
+                    })
+                    .catch(err => {
+                        throw err;
+                    });
+            },
         },
         mounted() {
             this.fetchTrailer();
             this.fetchWatchTrailer();
         },
         computed: {
-            categoriesList: function(){ 
-                return this.categoryNames.join(", ")    
+            categoriesList: function() {
+                return this.categoryNames.join(", ")
             }
         }
     }

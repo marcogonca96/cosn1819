@@ -7,6 +7,8 @@ class Wish(models.Model):
     category_id = models.IntegerField(null=False, blank=False)
     deleted = models.BooleanField(default=False)
 
+    objects = models.Manager()
+
     class Meta:
         db_table = 'Wishes'
         ordering = ['-id']

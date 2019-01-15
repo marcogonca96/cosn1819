@@ -1,0 +1,13 @@
+{
+    "type": "object",
+    "properties": {
+        "categories": {
+            "type": [
+                "array"
+            ]
+        }
+    },
+    "required": [
+        "categories"
+    ]
+}
