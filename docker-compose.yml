@@ -15,7 +15,7 @@ services:
     command: python3 manage.py runserver 0.0.0.0:8000 
     volumes:
       - .:/wish
-      - ./Wishlist/instance/db.sqlite3:/code/db.sqlite3:rw
+      - ./Wishlist/db/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8000:8000"
 
@@ -25,7 +25,7 @@ services:
     command: python3 manage.py runserver 0.0.0.0:8001
     volumes:
       - .:/user
-      - ./User/instance/db.sqlite3:/code/db.sqlite3:rw
+      - ./User/db/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8001:8001" 
 
@@ -35,7 +35,7 @@ services:
     command: python3 manage.py runserver 0.0.0.0:8002 
     volumes:
       - .:/catalogue
-      - ./Catalogue/instance/db.sqlite3:/code/db.sqlite3:rw
+      - ./Catalogue/db/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8002:8002"
     depends_on:
@@ -47,7 +47,7 @@ services:
     command: python main.py 
     volumes:
       - .:/videostream
-      - ./VideoStream/instance/videos.sqlite:/code/videos.sqlite:rw
+      - ./VideoStream/db/videos.sqlite:/code/videos.sqlite:rw
     ports:
       - "8005:8005"
 
