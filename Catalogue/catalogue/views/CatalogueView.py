@@ -62,7 +62,7 @@ class CatalogueViewSet(ModelViewSet):
             return HTTP.response(400, 'Ocorreu um erro   inesperado',
                                  'Unexpected Error. {}. {}.'.format(type(e).__name__, str(e)))
 
-        return HTTP.response(200, "New Catalogue Entry", new_video)
+        return HTTP.response(200, "New Catalogue Entry", new_video.id)
 
     def list(self, request):
         query = Catalogue.objects.all()
