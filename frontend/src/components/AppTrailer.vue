@@ -65,12 +65,15 @@
         },
         methods: {
             fetchTrailer: function() {
-                getTrailer(this.trailerID).then(trailer => {
-                        this.trailer = trailer;
+                getTrailer(this.trailerID).then(suc => {
+                        this.trailer = suc.data;
+                        console.log(`sucsucsuc ${JSON.stringify(this.trailer)}`);
                         this.videoURL = `${baseVideoURL}videos/${this.trailer.id}`;
-                        this.categoryNames = trailer.category.map(catId => this.categoriesMapping[catId].name);
+                        console.log(`trailer ${JSON.stringify(this.trailer)}`);
+                        
+                        this.categoryNames = this.trailer.category.map(catId => this.categoriesMapping[catId].name);
                         // eslint-disable-next-line
-                        console.log(`trailer:: ${JSON.stringify(trailer)}`);
+                       
                     })
                     .catch(err => {
                         throw err;

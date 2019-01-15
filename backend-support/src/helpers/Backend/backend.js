@@ -65,7 +65,8 @@ export function getCategories() {
   
       fetch(requestUrl, requestOptions).then(function (response) {
         if (response.status === 200) {
-          return resolve(response);
+          console.log(`responseresponse ${JSON.stringify(response.clone().json())}`);
+          return resolve(response.clone().json());
         } else {
           return reject(Error("An error has occurred! Please try again."));
         }
