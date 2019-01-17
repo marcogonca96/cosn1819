@@ -48,7 +48,7 @@ def after_request(response):
 
 def find_videoname(catalogue_id):
     
-    connection = sqlite3.connect('instance/videos.sqlite')
+    connection = sqlite3.connect('db/videos.sqlite')
     cursor = connection.cursor()    
 
     query = "SELECT path FROM videos WHERE catalogue_id=?"
@@ -123,7 +123,7 @@ def video(id):
 @app.route('/add_video', methods=['POST'])
 def add_video():
 
-    connection = sqlite3.connect('instance/videos.sqlite')
+    connection = sqlite3.connect('db/videos.sqlite')
     cursor = connection.cursor()    
 
     catalogue_id = request.form.get('catalogue_id')

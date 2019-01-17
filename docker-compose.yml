@@ -48,7 +48,6 @@ services:
     volumes:
       - .:/videostream
       - ./VideoStream/db/videos.sqlite:/code/videos.sqlite:rw
-      - ./VideoStream/videos:/code/videos
     ports:
       - "8005:8005"
 
@@ -58,14 +57,14 @@ services:
     command: python consumer.py
     depends_on:
       - rabbitmq
-
       
-#  frontend:
-#    build: ./frontend
-#    command: npm run serve 
-#    volumes:
-#      - .:/frontend
-#    ports:
-#      - "8080:8080"
-#    depends:
-#      - wishlist
+  frontend:
+    image: trailix/frontend
+    build: ./frontend
+    command: npm run serve 
+    volumes:
+      - .:/frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - wishlist
