@@ -47,3 +47,43 @@ spec:
         backend:
           serviceName: catalogue
           servicePort: 8002
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backend-wishlist
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /api/wishlist
+        backend:
+          serviceName: wishlist
+          servicePort: 8000
+      - path: /api/WishViewSet
+        backend:
+          serviceName: wishlist
+          servicePort: 8000
+      - path: /api/Wish
+        backend:
+          serviceName: wishlist
+          servicePort: 8000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backend-videostream
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /videos/*
+        backend:
+          serviceName: videostream
+          servicePort: 8005
+      - path: /add_video
+        backend:
+          serviceName: videostream
+          servicePort: 8005
