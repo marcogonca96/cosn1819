@@ -1,0 +1,49 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: frontend
+          servicePort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backend-user
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /api/user
+        backend:
+          serviceName: user
+          servicePort: 8001
+      - path: /api/login
+        backend:
+          serviceName: user
+          servicePort: 8001
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backend-catalogue
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /api/catalogue
+        backend:
+          serviceName: catalogue
+          servicePort: 8002
+      - path: /api/category
+        backend:
+          serviceName: catalogue
+          servicePort: 8002

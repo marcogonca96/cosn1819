@@ -10,7 +10,7 @@ services:
       - 15672:15672 # port for the RabbitMQ management interface
       
   wishlist:
-    image: trailix/wishlist
+    image: trailerflix/wishlist
     build: ./Wishlist
     command: python3 manage.py runserver 0.0.0.0:8000 
     volumes:
@@ -20,7 +20,7 @@ services:
       - "8000:8000"
 
   user:
-    image: trailix/user
+    image: trailerflix/user
     build: ./User
     command: python3 manage.py runserver 0.0.0.0:8001
     volumes:
@@ -30,7 +30,7 @@ services:
       - "8001:8001" 
 
   catalogue:
-    image: trailix/catalogue
+    image: trailerflix/catalogue
     build: ./Catalogue
     command: python3 manage.py runserver 0.0.0.0:8002 
     volumes:
@@ -42,7 +42,7 @@ services:
       - rabbitmq
 
   videostream:
-    image: trailix/videostream
+    image: trailerflix/videostream
     build: ./VideoStream
     command: python main.py 
     volumes:
@@ -52,14 +52,14 @@ services:
       - "8005:8005"
 
   consumer-service:
-    image: trailix/consumer-service
+    image: trailerflix/consumer-service
     build: ./consumer-service
     command: python consumer.py
     depends_on:
       - rabbitmq
       
   frontend:
-    image: trailix/frontend
+    image: trailerflix/frontend
     build: ./frontend
     command: npm run serve 
     volumes:
