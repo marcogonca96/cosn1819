@@ -76,7 +76,7 @@ export function getCategories() {
     });
   }
 
-  export function addVideoTrailer(catalogue_id, path) {
+  export function addVideoTrailer(catalogue_id, path, file) {
     return new Promise(function (resolve, reject) {
   
       let requestUrl = baseVideoURL + "add_video";
@@ -85,7 +85,7 @@ export function getCategories() {
 
       data.append('catalogue_id', catalogue_id)
       data.append('path', path)
-
+      data.append('file', file)
 
       let requestOptions = {
         uri: requestUrl,

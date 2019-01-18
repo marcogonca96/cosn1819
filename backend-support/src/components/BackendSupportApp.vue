@@ -72,15 +72,17 @@
 				videoFile: '',
 			imageUrl: '',
 			videoURL: '',
-			
 			categories: [],
 			selected: {},
+			path: ''
 	
 		}),
 		methods: {
 			listCategories: function() {
 				getCategories().then(suc => {
+					console.log(`suc ${JSON.stringify(suc)}`);
 						this.categories = suc.data;
+console.log(`this.categories ${JSON.stringify(this.categories)}`);
 					})
 					.catch(err => {
 						throw err;
@@ -142,12 +144,13 @@
 				if (this.$refs.formAddNewTrailer.validate()) {
 					createTrailer(this.title, this.description, this.year, categoryIds, this.imageFile,this.imageName).then(response => {
 						console.log(`catalogue_ID ${response.data}`);
-						path = "videos/" +  videoName;
-						console.log(`path ${path}`);
-						return addVideoTrailer(response.data, this.videoFile, this.path);
+						this.path = "videos/" +  this.videoName;
+						console.log(`path ${this.path}`);
+						return addVideoTrailer(response.data, this.path, this.videoFile);
 					}).then(suc => {
 						console.log("finished!");
 						this.$refs.formAddNewTrailer.reset();
+						this.imageUrl.reset;
 					}).catch(err => {
 						throw err;
 					})
