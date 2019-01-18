@@ -79,7 +79,7 @@ spec:
   - host: trailerflix
     http:
       paths:
-      - path: /videos/*
+      - path: /videos
         backend:
           serviceName: videostream
           servicePort: 8005
