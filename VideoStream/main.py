@@ -128,25 +128,20 @@ def add_video():
 
     catalogue_id = request.form.get('catalogue_id')
     path = request.form.get('path')
+    file = request.files['file']
     
     query = "INSERT INTO videos (catalogue_id, path) VALUES (?,?)"
     result = cursor.execute(query, (catalogue_id, path))
+    
+    filename = secure_filename(file.filename)
+    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
     connection.commit()
 
     return jsonify(isError= False,
                     message= "Success",
                     statusCode= 200), 200
-
-@app.route('/upload_video', methods=['GET', 'POST'])
-def upload_video():
-    if request.method == 'POST':
-        file = request.files['file']
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            
-    return render_template("upload.html")
-
+             
 if __name__ == '__main__':
     HOST = '0.0.0.0'
     app.run(host=HOST, port=8005, debug=True)

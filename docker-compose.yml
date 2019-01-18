@@ -48,6 +48,7 @@ services:
     volumes:
       - .:/videostream
       - ./VideoStream/db/videos.sqlite:/code/videos.sqlite:rw
+      - ./VideoStream/videos:/code/videos
     ports:
       - "8005:8005"
 
