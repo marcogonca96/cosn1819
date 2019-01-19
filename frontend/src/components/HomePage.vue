@@ -23,6 +23,7 @@
         getCatalogue,
         getCategories
     } from "@/helpers/Home/home.js";
+     
     
     export default {
         components: {
@@ -36,6 +37,7 @@
                 categories: [],
                 trailerCategoryMap: {},
                 categoriesMapping: {}
+            
             }
         },
         methods: {
@@ -58,8 +60,9 @@
                 getCatalogue().then(suc => {
                     console.log(`SUC ${JSON.stringify(suc)}`);
                     this.trailers = suc.data;
+                    console.log(` this.trailers ${JSON.stringify( this.trailers)}`);
                     this.trailerCategoryMap = this.mapTrailerCategories(this.trailers, this.categoriesMapping);
-                    console.log(`this.trailerCategoryMap ${this.trailerCategoryMap}`);
+                    console.log(`this.trailerCategoryMap ${JSON.stringify(this.trailerCategoryMap)}`);
                 })
                 .catch(err => {
                     console.log(`ERROR: ${err}`);
