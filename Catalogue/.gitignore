@@ -113,3 +113,14 @@ ENV/
 .idea
 coverage
 
+#ignore migrations
+/catalogue/migrations/*
+!/catalogue/migrations/__init__.py
+
+#DB Ignore
+db.sqlite3
+
+#image folder
+img/catalogue/*
+!img/catalogue/lionking.png
+!img/catalogue/hellboy.png
