@@ -21,7 +21,7 @@
             <br>
     
             <iframe id="ytplayer" type="text/html" width="800" height="400" :src="videoURL" frameborder="0" allowfullscreen></iframe>
-            <h2 style="color:white; text-align: left"> Sinopse </h2>
+            <h2 style="color:white; text-align: left"> Synopsis </h2>
             <br>
             <p style="color:white; text-align: left">{{ trailer.description }}</p>
             <v-divider></v-divider>
