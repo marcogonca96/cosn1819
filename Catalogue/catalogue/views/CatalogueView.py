@@ -3,7 +3,6 @@ import logging
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import transaction
-from django.shortcuts import get_object_or_404
 from rest_framework.viewsets import ModelViewSet
 
 from catalogue.helpers.HttpException import HttpException
@@ -12,16 +11,12 @@ from catalogue.helpers.Producer import Producer
 from catalogue.helpers.SchemaValidator import SchemaValidator
 from catalogue.models import Category
 from catalogue.models.catalogue import Catalogue
-from catalogue.models.video_categories import VideoCategory
-from catalogue.serializers.catalogueSerializer import CatalogueSerializer
+from catalogue.serializers.catalogueSerializer import CatalogueSerializer, CatalogueEventSerializer
 
 logger = logging.getLogger(__name__)
 
 
 class CatalogueViewSet(ModelViewSet):
-        
-    queryset = Catalogue.objects.all()
-    serializer_class = CatalogueSerializer
 
     def create(self, request):
         try:
@@ -31,7 +26,6 @@ class CatalogueViewSet(ModelViewSet):
                 raise Exception('You need to send a file.')
 
             list_of_caterogies = [int(x) for x in request.data['category'].split(",")]
-
 
             new_video = Catalogue(
                 title=request.data['title'],
@@ -46,15 +40,15 @@ class CatalogueViewSet(ModelViewSet):
                 new_video.image.save("%s" % filename, image)
             with transaction.atomic():
                 channel='wish'
-                producer = Producer(host='rabbitmq', channel=channel)
+                producer = Producer(host='localhost', channel=channel)
                 caterogies = list(Category.objects.filter(id__in=list_of_caterogies).all())
                 new_video.category.add(*caterogies)
                 new_video.save()
-                message = {}
-                message['categories'] = list_of_caterogies
-                producer.send_message(message=json.dumps(list_of_caterogies), queue=channel)
+                message = {'categories': list_of_caterogies, 'title': new_video.title,
+                           'description': new_video.description}
+                producer.send_message(message=json.dumps(message), queue=channel)
 
-            logger.info("New Video")
+            logger.info("New Catalogue Entry")
 
         except HttpException as e:
             return HTTP.response(e.http_code, e.http_detail)
