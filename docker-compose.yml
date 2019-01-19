@@ -51,7 +51,6 @@ services:
     depends_on:
       - rabbitmq
 
-      
   frontend:
     build: ./frontend
     command: npm run serve 
