@@ -30,6 +30,7 @@ services:
     volumes:
       - .:/catalogue
       - ./Catalogue/db.sqlite3:/code/db.sqlite3:rw
+      - ./Catalogue/img:code/img:rw
     ports:
       - "8002:8002"
     depends_on:
