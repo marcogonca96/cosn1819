@@ -8,12 +8,17 @@ services:
     ports:
       - 5672:5672 # port for the daemon API
       - 15672:15672 # port for the RabbitMQ management interface
+    healthcheck:
+      test: [ "CMD", "nc", "-z", "localhost", "5672" ]
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
   wishlist:
     build: ./Wishlist
     command: python3 manage.py runserver 0.0.0.0:8000 
     volumes:
       - .:/wish
-      - ./Wishlist/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8000:8000"
   user:
@@ -21,16 +26,13 @@ services:
     command: python3 manage.py runserver 0.0.0.0:8001
     volumes:
       - .:/user
-      - ./User/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8001:8001"  
   catalogue:
     build: ./Catalogue
-    command: python3 manage.py runserver 0.0.0.0:8002 
+    command: python3 manage.py runserver 0.0.0.0:8002
     volumes:
       - .:/catalogue
-      - ./Catalogue/db.sqlite3:/code/db.sqlite3:rw
-      - ./Catalogue/img:code/img:rw
     ports:
       - "8002:8002"
     depends_on:
@@ -49,16 +51,17 @@ services:
   consumer-service:
     build: ./consumer-service
     command: python consumer.py
+    restart: always
     depends_on:
       - rabbitmq
 
       
-#  frontend:
-#    build: ./frontend
-#    command: npm run serve 
-#    volumes:
-#      - .:/frontend
-#    ports:
-#      - "8080:8080"
-#    depends:
-#      - wishlist
+  frontend:
+    build: ./frontend
+    command: npm run serve 
+    volumes:
+      - .:/frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - wishlist

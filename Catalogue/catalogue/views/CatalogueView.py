@@ -40,7 +40,7 @@ class CatalogueViewSet(ModelViewSet):
                 new_video.image.save("%s" % filename, image)
             with transaction.atomic():
                 channel='wish'
-                producer = Producer(host='localhost', channel=channel)
+                producer = Producer(host='rabbitmq', channel=channel)
                 caterogies = list(Category.objects.filter(id__in=list_of_caterogies).all())
                 new_video.category.add(*caterogies)
                 new_video.save()
