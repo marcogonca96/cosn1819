@@ -51,7 +51,7 @@ services:
   consumer-service:
     build: ./consumer-service
     command: python consumer.py
-    restart: always
+    restart: on-failure
     depends_on:
       - rabbitmq
 

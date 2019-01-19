@@ -5,6 +5,7 @@ import pika
 import requests
 
 # delay to start rabbitmq
+time.sleep(20)
 print("Delay for rabbitmq")
 # time.sleep(20)
 print("Connecting to rabbit")
@@ -32,7 +33,7 @@ Description: {}
 
 
 def request_user_emails(categories):
-    response = requests.request(method='GET', url='http://localhost:8000/api/wish/users/?categories=' + str(categories))
+    response = requests.request(method='GET', url='http://wishlist:8000/api/wish/users/?categories=' + str(categories))
     if response.status_code == 200:
         return [d['user_email'] for d in json.loads(response.text)['data'] if 'user_email' in d]
 
@@ -45,7 +46,7 @@ def send_simple_message(email, context, subject):
     return requests.post(
         "https://api.mailgun.net/v3/sandbox8be1ece0cb0c4f908b5cac05b2fe91e6.mailgun.org/messages",
         auth=("api", "07503c6ffcaa31f53ab543b006becb0f-3939b93a-23762f6f"),
-        data={"from": "postmaster@trailerflix.bestapp.com",
+        data={"from": "postmaster@sandbox8be1ece0cb0c4f908b5cac05b2fe91e6.mailgun.org",
               "to": email,
               "subject": subject,
               "text": context})
@@ -61,9 +62,9 @@ def callback(ch, method, properties, body):
         if email:
             mail_response = send_simple_message(email, email_context, email_title)
             if mail_response:
-                print("Nice")
+                print("Email Sent")
             else:
-                print("No Email")
+                print("Could not send email")
     time.sleep(body.count(b'.'))
     print(" [x] Done")
     ch.basic_ack(delivery_tag=method.delivery_tag)
