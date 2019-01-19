@@ -121,6 +121,8 @@ coverage
 db.sqlite3
 
 #image folder
-!img/catalogue/lionking.png
-!img/catalogue/hellboy.png
 img/catalogue/*
+!img/catalogue/The Lion King
+!img/catalogue/Hellboy
+!img/catalogue/The Lion King/*
+!img/catalogue/Hellboy/*
