@@ -52,12 +52,12 @@ services:
       - rabbitmq
 
       
-#  frontend:
-#    build: ./frontend
-#    command: npm run serve 
-#    volumes:
-#      - .:/frontend
-#    ports:
-#      - "8080:8080"
-#    depends:
-#      - wishlist
+  frontend:
+    build: ./frontend
+    command: npm run serve 
+    volumes:
+      - .:/frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - wishlist
