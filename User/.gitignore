@@ -111,3 +111,10 @@ ENV/
 .mypy_cache/
 .idea
 coverage
+
+#ignore migrations
+login/migrations/*
+!login/migrations/__init__.py
+
+#DB Ignore
+db.sqlite3

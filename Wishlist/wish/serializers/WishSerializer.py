@@ -12,3 +12,14 @@ class WishSerializer(serializers.ModelSerializer):
         model = Wish
         fields = '__all__'
 
+
+class WishEmailSerializer(serializers.ModelSerializer):
+
+    def to_representation(self, obj):
+        data = super(WishEmailSerializer, self).to_representation(obj)  # the original data
+        return data
+
+    class Meta:
+        model = Wish
+        fields = ['user_email']
+

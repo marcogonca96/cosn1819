@@ -20,18 +20,12 @@
             "type": [
                 "string"
             ]
-        },
-        "image": {
-            "type": [
-                "string"
-            ]
         }
     },
     "required": [
         "title",
         "year",
         "description",
-        "category",
-        "image"
+        "category"
     ]
 }
