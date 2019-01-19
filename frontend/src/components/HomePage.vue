@@ -84,18 +84,18 @@
         },
         mounted() {
             
-            let categories = this.$store.getters.categories;
-            let categoriesMapping = this.$store.getters.categoriesMapping;
+            //let categories = this.$store.getters.categories;
+            //let categoriesMapping = this.$store.getters.categoriesMapping;
 
-            console.log(`this.$store.getters.categories =>  ${JSON.stringify(categories)}`);
-            console.log(`this.$store.getters.categoriesMapping =>  ${JSON.stringify(categoriesMapping)}`);
+            //console.log(`this.$store.getters.categories =>  ${JSON.stringify(categories)}`);
+            //console.log(`this.$store.getters.categoriesMapping =>  ${JSON.stringify(categoriesMapping)}`);
 
-            if (categories && categoriesMapping) {
-                this.listCategories = categories;
-                this.categoriesMapping = categoriesMapping;
-            } else {
+            //if (categories && categoriesMapping) {
+              //  this.listCategories = categories;
+                //this.categoriesMapping = categoriesMapping;
+            //} else {
                 this.listCategories();
-            }
+            //}
             this.listTrailers();
         },
     }

@@ -36,7 +36,7 @@ class WishViewSet(GenericViewSet):
             # 1. Check if pair username-password is correct
             category_id = [category for category in request.data['categories']]
             user_id = request.USER_ID
-            user_email = request.USE_EMAIL
+            user_email = request.USER_EMAIL
             with transaction.atomic():
                 Wish.objects.filter(user_id=user_id).all().delete()
                 for category in category_id:
