@@ -32,7 +32,7 @@ Description: {}
 
 
 def request_user_emails(categories):
-    response = requests.request(method='GET', url='wishlist:8000/api/wish/users/?categories=' + str(categories))
+    response = requests.request(method='GET', url='http://localhost:8000/api/wish/users/?categories=' + str(categories))
     if response.status_code == 200:
         return [d['user_email'] for d in json.loads(response.text)['data'] if 'user_email' in d]
 
