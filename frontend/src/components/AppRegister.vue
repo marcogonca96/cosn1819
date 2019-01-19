@@ -80,8 +80,8 @@ import router from '../router/index'
         if (this.$refs.formCreateUser.validate() && this.password == this.confirmpassword) {
           // Native form submission is not yet supported
           createUser(this.name, this.password, this.email, 'Admin').then(suc => {
-              console.log("registou");
-             router.push('/homePage');
+                console.log("registou");
+                router.push('/login');
           }).catch(err => {
               throw err;
           })
