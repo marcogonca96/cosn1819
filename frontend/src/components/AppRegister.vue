@@ -15,8 +15,7 @@
                                         <v-text-field v-model="name" :rules="nameRules"  label="Name" required @input="$v.name.$touch()" @blur="$v.name.$touch()"></v-text-field>
                                         <v-text-field v-model="email" :rules="emailRules" label="E-mail" required @input="$v.email.$touch()" @blur="$v.email.$touch()"></v-text-field>
                                         <v-text-field :type="'password'" v-model="password" :rules="passwordRules" label="Password" required @input="$v.password.$touch()" @blur="$v.password.$touch()"></v-text-field>
-                                        <v-text-field v-model="confirmpassword" :rules="confirmpassRules" label="Confirm Password" required @input="$v.confirmpassword.$touch()" @blur="$v.confirmpassword.$touch()"></v-text-field>
-                                        <v-checkbox v-model="checkbox" label="Upgrade for Premium?" required @change="$v.checkbox.$touch()" @blur="$v.checkbox.$touch()"></v-checkbox>
+                                        <v-text-field :type="'password'" v-model="confirmpassword" :rules="confirmpassRules" label="Confirm Password" required @input="$v.confirmpassword.$touch()" @blur="$v.confirmpassword.$touch()"></v-text-field>
                                         <v-card-actions>
                                             <div>
                                             <router-link to="/">
