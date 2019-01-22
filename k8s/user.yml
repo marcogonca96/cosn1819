@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: user-app
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: user-app
+    spec:
+      volumes:
+      - name: data
+        emptyDir: {}
+      containers:
+      - name: user
+        image: trailerflix/user
+        ports:
+        - containerPort: 8001
+        volumeMounts:
+        - name: data
+          mountPath: /var/lib/user-app/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user-app
+  namespace: default
+spec:
+  selector:
+    app: user-app
+  ports:
+  - port: 8001

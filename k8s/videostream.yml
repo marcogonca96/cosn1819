@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: videostream-app
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: videostream-app
+    spec:
+      volumes:
+      - name: data
+        emptyDir: {}
+      containers:
+      - name: videostream
+        image: trailerflix/videostream
+        ports:
+        - containerPort: 8005
+        volumeMounts:
+        - name: data
+          mountPath: /code/videostream-app/
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: videostream-app
+  namespace: default
+spec:
+  selector:
+    app: videostream-app
+  ports:
+  - port: 8005

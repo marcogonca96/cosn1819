@@ -1,0 +1,186 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-app
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: frontend-app
+          servicePort: 8080
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: user-app
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /api/user
+        backend:
+          serviceName: user-app
+          servicePort: 8001
+      - path: /api/login
+        backend:
+          serviceName: user-app
+          servicePort: 8001
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: catalogue-app
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /img/catalogue
+        backend:
+          serviceName: catalogue-app
+          servicePort: 8002
+      - path: /api/catalogue
+        backend:
+          serviceName: catalogue-app
+          servicePort: 8002
+      - path: /api/category
+        backend:
+          serviceName: catalogue-app
+          servicePort: 8002
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: wishlist-app
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /api/wishlist
+        backend:
+          serviceName: wishlist-app
+          servicePort: 8000
+      - path: /api/WishViewSet
+        backend:
+          serviceName: wishlist-app
+          servicePort: 8000
+      - path: /api/Wish
+        backend:
+          serviceName: wishlist-app
+          servicePort: 8000
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: videostream-app
+spec:      
+  rules:
+  - host: trailerflix
+    http:
+      paths:
+      - path: /videos
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005
+      - path: /api
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005
+      - path: /add_video
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backoffice-app
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+spec:      
+  rules:
+  - host: trailerflix.backoffice
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: backoffice-app
+          servicePort: 8081
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backoffice-catalogue
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+spec:      
+  rules:
+  - host: trailerflix.backoffice
+    http:
+      paths:
+      - path: /img/catalogue
+        backend:
+          serviceName: catalogue-app
+          servicePort: 8002
+      - path: /api/catalogue
+        backend:
+          serviceName: catalogue-app
+          servicePort: 8002
+      - path: /api/category
+        backend:
+          serviceName: catalogue-app
+          servicePort: 8002
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backoffice-videostream
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+spec:      
+  rules:
+  - host: trailerflix.backoffice
+    http:
+      paths:
+      - path: /videos
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005
+      - path: /api
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005
+      - path: /add_video
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: rabbitmq-catalogue
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
+spec:      
+  rules:
+  - host: trailerflix.rabbitmq
+    http:
+      paths:
+      - path: /videos
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005
+      - path: /api
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005
+      - path: /add_video
+        backend:
+          serviceName: videostream-app
+          servicePort: 8005

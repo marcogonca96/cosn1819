@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: consumer-app
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: consumer-app
+    spec:
+      volumes:
+      - name: data
+        emptyDir: {}
+      containers:
+      - name: consumer
+        image: trailerflix/consumer
+        ports:
+        - containerPort: 8006
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: consumer-app
+  namespace: default
+spec:
+  selector:
+    app: consumer-app
+  ports:
+  - port: 8006
