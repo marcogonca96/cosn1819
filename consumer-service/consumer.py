@@ -44,9 +44,9 @@ def send_email(email, context, subject):
 
 def send_simple_message(email, context, subject):
     return requests.post(
-        "https://api.mailgun.net/v3/sandbox85203cb748ff492aadc80d8260c86cbc.mailgun.org/messages",
-        auth=("api", "3a9aa6bd3694a7af3f52a420ce2e50de-3939b93a-875ce3c8"),
-        data={"from": "Mailgun Sandbox <postmaster@sandbox85203cb748ff492aadc80d8260c86cbc.mailgun.org>",
+        "https://api.mailgun.net/v3/sandbox70a50c7be77a4a84b311ba55b9e0a218.mailgun.org/messages",
+        auth=("api", "1270c7d9676cc65f73e88bfd893812aa-2d27312c-1ce90ada"),
+        data={"from": "Mailgun Sandbox <postmaster@sandbox70a50c7be77a4a84b311ba55b9e0a218.mailgun.org>",
               "to": email,
               "subject": subject,
               "text": context})
