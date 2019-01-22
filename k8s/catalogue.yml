@@ -1,0 +1,34 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: catalogue-app
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: catalogue-app
+    spec:
+      containers:
+      - name: catalogue
+        image: trailerflix/catalogue
+        ports:
+        - containerPort: 8002
+        volumeMounts:
+        - name: data
+          mountPath: /code/
+      volumes:
+      - name: data
+        emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalogue-app
+  namespace: default
+spec:
+  selector:
+    app: catalogue-app
+  ports:
+  - port: 8002
