@@ -39,6 +39,10 @@ spec:
   - host: trailerflix
     http:
       paths:
+      - path: /img/catalogue
+        backend:
+          serviceName: catalogue
+          servicePort: 8002
       - path: /api/catalogue
         backend:
           serviceName: catalogue
