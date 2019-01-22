@@ -44,9 +44,9 @@ def send_email(email, context, subject):
 
 def send_simple_message(email, context, subject):
     return requests.post(
-        "https://api.mailgun.net/v3/sandbox8be1ece0cb0c4f908b5cac05b2fe91e6.mailgun.org/messages",
-        auth=("api", "07503c6ffcaa31f53ab543b006becb0f-3939b93a-23762f6f"),
-        data={"from": "postmaster@sandbox8be1ece0cb0c4f908b5cac05b2fe91e6.mailgun.org",
+        "https://api.mailgun.net/v3/sandbox70a50c7be77a4a84b311ba55b9e0a218.mailgun.org/messages",
+        auth=("api", "1270c7d9676cc65f73e88bfd893812aa-2d27312c-1ce90ada"),
+        data={"from": "Mailgun Sandbox <postmaster@sandbox70a50c7be77a4a84b311ba55b9e0a218.mailgun.org>",
               "to": email,
               "subject": subject,
               "text": context})
@@ -58,13 +58,14 @@ def callback(ch, method, properties, body):
     emails = request_user_emails(message['categories'])
     email_title = "Your Wish Came True"
     email_context = create_email_context(message['title'], message['description'])
+    emails = set(emails)
     for email in emails:
         if email:
             mail_response = send_simple_message(email, email_context, email_title)
             if mail_response:
                 print("Email Sent")
             else:
-                print("Could not send email")
+                print("Could not send email to: {}".format(email))
     time.sleep(body.count(b'.'))
     print(" [x] Done")
     ch.basic_ack(delivery_tag=method.delivery_tag)
