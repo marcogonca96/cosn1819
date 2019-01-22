@@ -54,7 +54,6 @@ nosetests.xml
 coverage.xml
 *.cover
 .hypothesis/
-*.sqlite3
 
 # Translations
 *.mo
@@ -115,5 +114,3 @@ coverage
 #ignore migrations
 login/migrations/*
 !login/migrations/__init__.py
-
-#DB Ignore
