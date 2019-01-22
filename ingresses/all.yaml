@@ -100,6 +100,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: frontend-backoffice
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
 spec:      
   rules:
   - host: trailerflix.backoffice
@@ -114,6 +116,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: backoffice-catalogue
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
 spec:      
   rules:
   - host: trailerflix.backoffice
@@ -136,6 +140,8 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: backoffice-videostream
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: 50m
 spec:      
   rules:
   - host: trailerflix.backoffice
