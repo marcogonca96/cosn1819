@@ -87,6 +87,10 @@ spec:
         backend:
           serviceName: videostream
           servicePort: 8005
+      - path: /api
+        backend:
+          serviceName: videostream
+          servicePort: 8005
       - path: /add_video
         backend:
           serviceName: videostream
