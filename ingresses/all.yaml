@@ -109,3 +109,47 @@ spec:
         backend:
           serviceName: backoffice
           servicePort: 8081
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backoffice-catalogue
+spec:      
+  rules:
+  - host: trailerflix.backoffice
+    http:
+      paths:
+      - path: /img/catalogue
+        backend:
+          serviceName: catalogue
+          servicePort: 8002
+      - path: /api/catalogue
+        backend:
+          serviceName: catalogue
+          servicePort: 8002
+      - path: /api/category
+        backend:
+          serviceName: catalogue
+          servicePort: 8002
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: backoffice-videostream
+spec:      
+  rules:
+  - host: trailerflix.backoffice
+    http:
+      paths:
+      - path: /videos
+        backend:
+          serviceName: videostream
+          servicePort: 8005
+      - path: /api
+        backend:
+          serviceName: videostream
+          servicePort: 8005
+      - path: /add_video
+        backend:
+          serviceName: videostream
+          servicePort: 8005
