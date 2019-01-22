@@ -19,8 +19,7 @@ services:
     build: ./Wishlist
     command: python3 manage.py runserver 0.0.0.0:8000 
     volumes:
-      - .:/wish
-      - ./Wishlist/db/db.sqlite3:/code/db.sqlite3
+      - ./Wishlist/db/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8000:8000"
 
@@ -29,8 +28,7 @@ services:
     build: ./User
     command: python3 manage.py runserver 0.0.0.0:8001
     volumes:
-      - .:/user
-      - ./User/db/db.sqlite3:/code/db.sqlite3
+      - ./User/db/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8001:8001" 
 
@@ -39,8 +37,7 @@ services:
     build: ./Catalogue
     command: python3 manage.py runserver 0.0.0.0:8002
     volumes:
-      - .:/catalogue
-      - ./Catalogue/db/db.sqlite3:/code/db.sqlite3
+      - ./Catalogue/db/db.sqlite3:/code/db.sqlite3:rw
     ports:
       - "8002:8002"
     depends_on:
@@ -51,8 +48,7 @@ services:
     build: ./VideoStream
     command: python main.py 
     volumes:
-      - .:/videostream
-      - ./VideoStream/db/videos.sqlite:/code/videos.sqlite
+      - ./VideoStream/db/videos.sqlite:/code/videos.sqlite:rw
     ports:
       - "8005:8005"
 
@@ -68,8 +64,6 @@ services:
     image: trailerflix/frontend
     build: ./frontend
     command: npm run serve 
-    volumes:
-      - .:/frontend
     ports:
       - "8080:8080"
     depends_on:
@@ -81,8 +75,6 @@ services:
     image: trailerflix/backoffice
     build: ./backend-support
     command: npm run serve 
-    volumes:
-      - .:/backend-support
     ports:
       - "8081:8081"
     depends_on:

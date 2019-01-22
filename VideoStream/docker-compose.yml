@@ -1,6 +1,0 @@
-version: '2'
-services:
-  trailix:
-    build: .
-    ports:
-        - 8005:8005
