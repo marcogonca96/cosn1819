@@ -95,3 +95,17 @@ spec:
         backend:
           serviceName: videostream
           servicePort: 8005
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-backoffice
+spec:      
+  rules:
+  - host: trailerflix.backoffice
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: backoffice
+          servicePort: 8081

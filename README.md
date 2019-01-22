@@ -21,5 +21,5 @@ Netflix-like app but for trailers only
 4. $ kompose up (in the root, where docker-compose.yaml is) (wait for it to finish)
 5. $ kubectl create -f ingresses/all.yaml
 6. $ minikube dashboard (optional, to see the state of the deployment)
-7. associate the minikube ip to the name "trailerflix" on etc/hosts
+7. associate the minikube ip to the name "trailerflix" and "trailerflix.backoffice" on etc/hosts
 8. run the app by opening a browser and accessing http://trailerflix
