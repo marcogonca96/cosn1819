@@ -116,13 +116,3 @@ coverage
 #ignore migrations
 /catalogue/migrations/*
 !/catalogue/migrations/__init__.py
-
-#DB Ignore
-db.sqlite3
-
-#image folder
-img/catalogue/*
-!img/catalogue/The Lion King
-!img/catalogue/Hellboy
-!img/catalogue/The Lion King/*
-!img/catalogue/Hellboy/*
