@@ -48,7 +48,7 @@ def after_request(response):
 
 def find_videoname(catalogue_id):
     
-    connection = sqlite3.connect('db/videos.sqlite')
+    connection = sqlite3.connect('videos.sqlite')
     cursor = connection.cursor()    
 
     query = "SELECT path FROM videos WHERE catalogue_id=?"
