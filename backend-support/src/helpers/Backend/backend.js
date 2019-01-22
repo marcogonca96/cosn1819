@@ -54,8 +54,6 @@ export function getCategories() {
         uri: requestUrl,
         method: "POST",
         headers: {
-        
-          
           'pragma': 'no-cache',
           'cache-control': 'no-cache',
           'jwt': localStorage.getItem('token')
@@ -63,7 +61,7 @@ export function getCategories() {
         body: data
       }
   
-      fetch(requestUrl, requestOptions).then(function (response) {
+      setTimeout(fetch(requestUrl, requestOptions).then(function (response) {
         if (response.status === 200) {
           console.log(`responseresponse ${JSON.stringify(response.clone().json())}`);
           return resolve(response.clone().json());
@@ -72,7 +70,8 @@ export function getCategories() {
         }
       }, function (error) {
         return reject(error);
-      });
+      }), 5000)
+
     });
   }
 
