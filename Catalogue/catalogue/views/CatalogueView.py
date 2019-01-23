@@ -46,7 +46,7 @@ class CatalogueViewSet(ModelViewSet):
                 new_video.save()
                 message = {'categories': list_of_caterogies, 'title': new_video.title,
                            'description': new_video.description}
-                producer.send_message(message=json.dumps(message), queue=channel)
+                #producer.send_message(message=json.dumps(message), queue=channel)
 
             logger.info("New Catalogue Entry")
 
